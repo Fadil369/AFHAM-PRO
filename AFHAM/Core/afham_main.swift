@@ -107,12 +107,11 @@ class GeminiFileSearchManager: ObservableObject {
     
     // BRAINSAIT: Create file search store with audit logging
     func createFileSearchStore(displayName: String) async throws -> String {
-        let endpoint = "\(baseURL)/fileSearchStores"
-        
+        let endpoint = "\(baseURL)/fileSearchStores?key=\(AFHAMConfig.geminiAPIKey)"
+
         var request = URLRequest(url: URL(string: endpoint)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(AFHAMConfig.geminiAPIKey, forHTTPHeaderField: "x-goog-api-key")
         
         let body: [String: Any] = [
             "displayName": displayName
@@ -182,11 +181,10 @@ class GeminiFileSearchManager: ObservableObject {
     
     // Upload file to Gemini Files API
     private func uploadFileToGemini(fileData: Data, fileName: String) async throws -> String {
-        let endpoint = "\(baseURL)/files"
-        
+        let endpoint = "\(baseURL)/files?key=\(AFHAMConfig.geminiAPIKey)"
+
         var request = URLRequest(url: URL(string: endpoint)!)
         request.httpMethod = "POST"
-        request.addValue(AFHAMConfig.geminiAPIKey, forHTTPHeaderField: "x-goog-api-key")
         
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
@@ -221,13 +219,12 @@ class GeminiFileSearchManager: ObservableObject {
         guard let storeID = fileSearchStoreID else {
             throw NSError(domain: "NoStore", code: -1)
         }
-        
-        let endpoint = "\(baseURL)/\(storeID):importFile"
-        
+
+        let endpoint = "\(baseURL)/\(storeID):importFile?key=\(AFHAMConfig.geminiAPIKey)"
+
         var request = URLRequest(url: URL(string: endpoint)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(AFHAMConfig.geminiAPIKey, forHTTPHeaderField: "x-goog-api-key")
         
         let body: [String: Any] = [
             "fileName": fileID,
@@ -274,13 +271,12 @@ class GeminiFileSearchManager: ObservableObject {
                 NSLocalizedDescriptionKey: "No file search store available. Please upload documents first."
             ])
         }
-        
-        let endpoint = "\(baseURL)/models/\(AFHAMConfig.geminiModel):generateContent"
-        
+
+        let endpoint = "\(baseURL)/models/\(AFHAMConfig.geminiModel):generateContent?key=\(AFHAMConfig.geminiAPIKey)"
+
         var request = URLRequest(url: URL(string: endpoint)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(AFHAMConfig.geminiAPIKey, forHTTPHeaderField: "x-goog-api-key")
         
         let body: [String: Any] = [
             "contents": [
