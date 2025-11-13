@@ -1,4 +1,8 @@
 name: Security & Vulnerability Scanning
+permissions:
+  contents: read
+  issues: write
+  actions: read
 # Advanced security scanning for AFHAM with PDPL compliance checks
 
 on:
