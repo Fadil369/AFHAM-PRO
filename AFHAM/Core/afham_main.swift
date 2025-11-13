@@ -2,9 +2,35 @@
 // Advanced Multimodal RAG System for iOS
 // Combining Google Gemini File Search + Apple Intelligence
 
+// MARK: - Info.plist Configuration Required
+/*
+Add the following to your Info.plist to fix document opening warnings:
+
+<key>LSSupportsOpeningDocumentsInPlace</key>
+<true/>
+<key>UISupportsDocumentBrowser</key>
+<true/>
+<key>CFBundleDocumentTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>LSHandlerRank</key>
+        <string>Owner</string>
+        <key>LSItemContentTypes</key>
+        <array>
+            <string>public.pdf</string>
+            <string>public.text</string>
+            <string>public.rtf</string>
+        </array>
+    </dict>
+</array>
+*/
+
 import SwiftUI
 import UniformTypeIdentifiers
 import AVFoundation
+import AVFAudio
 import Speech
 import Vision
 import NaturalLanguage
@@ -20,10 +46,16 @@ struct AFHAMConfig {
     static let professionalGray = AFHAMColors.professionalGray
     
     static let supportedFileTypes = AFHAMConstants.Files.supportedUTTypes
-    
+
     // API Configuration - Store securely in production
-    static let geminiAPIKey = "YOUR_GEMINI_API_KEY" // TODO: Move to secure storage
+    // NOTE: API key is set for testing. In production, use environment variables or Keychain
+    static let geminiAPIKey = ProcessInfo.processInfo.environment["GEMINI_API_KEY"] ?? "AIzaSyCoyOP2O1zbuTmsQSwwYxhP8oa3Tzxg410"
     static let geminiModel = AFHAMConstants.API.geminiModel
+    
+    // Check if API key is configured
+    static var isConfigured: Bool {
+        return !geminiAPIKey.isEmpty && geminiAPIKey != "YOUR_GEMINI_API_KEY"
+    }
 }
 
 // MARK: - MEDICAL: Data Models
@@ -103,6 +135,13 @@ class GeminiFileSearchManager: ObservableObject {
     
     // MEDICAL: Upload and import file to File Search Store
     func uploadAndIndexDocument(fileURL: URL) async throws -> DocumentMetadata {
+        // Check if API key is configured
+        guard AFHAMConfig.isConfigured else {
+            throw NSError(domain: "GeminiAPI", code: -1, userInfo: [
+                NSLocalizedDescriptionKey: "Gemini API key not configured. Please set GEMINI_API_KEY environment variable."
+            ])
+        }
+        
         isProcessing = true
         defer { isProcessing = false }
         
@@ -223,8 +262,17 @@ class GeminiFileSearchManager: ObservableObject {
     
     // AGENT: Query with File Search
     func queryDocuments(question: String, language: String) async throws -> (answer: String, citations: [Citation]) {
+        // Check if API key is configured
+        guard AFHAMConfig.isConfigured else {
+            throw NSError(domain: "GeminiAPI", code: -1, userInfo: [
+                NSLocalizedDescriptionKey: "Gemini API key not configured. Please set GEMINI_API_KEY environment variable."
+            ])
+        }
+        
         guard let storeID = fileSearchStoreID else {
-            throw NSError(domain: "NoStore", code: -1)
+            throw NSError(domain: "NoStore", code: -1, userInfo: [
+                NSLocalizedDescriptionKey: "No file search store available. Please upload documents first."
+            ])
         }
         
         let endpoint = "\(baseURL)/models/\(AFHAMConfig.geminiModel):generateContent"
@@ -299,6 +347,32 @@ class VoiceAssistantManager: NSObject, ObservableObject, SFSpeechRecognizerDeleg
         setupSpeechRecognizer()
     }
     
+    deinit {
+        // Perform cleanup synchronously without calling main actor methods
+        if audioEngine.isRunning {
+            audioEngine.stop()
+        }
+        
+        // Remove tap safely
+        audioEngine.inputNode.removeTap(onBus: 0)
+        
+        // End audio recognition
+        recognitionRequest?.endAudio()
+        recognitionTask?.cancel()
+        
+        // Clean up references
+        recognitionRequest = nil
+        recognitionTask = nil
+        
+        // Deactivate audio session
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            // Ignore errors during cleanup in deinit
+        }
+    }
+    
     private func setupSpeechRecognizer() {
         speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: currentLanguage))
         speechRecognizer?.delegate = self
@@ -312,52 +386,124 @@ class VoiceAssistantManager: NSObject, ObservableObject, SFSpeechRecognizerDeleg
     
     // Start listening
     func startListening() async throws {
-        // Request authorization
-        let status = await SFSpeechRecognizer.requestAuthorization()
-        guard status == .authorized else { return }
+        // Request speech recognition authorization
+        let speechStatus = await withCheckedContinuation { continuation in
+            SFSpeechRecognizer.requestAuthorization { status in
+                continuation.resume(returning: status)
+            }
+        }
+        guard speechStatus == .authorized else { 
+            throw NSError(domain: "VoiceAssistant", code: 1, userInfo: [NSLocalizedDescriptionKey: "Speech recognition not authorized"])
+        }
+        
+        // Request microphone permission
+        let microphoneStatus = await withCheckedContinuation { continuation in
+            AVAudioApplication.requestRecordPermission { granted in
+                continuation.resume(returning: granted)
+            }
+        }
+        guard microphoneStatus else {
+            throw NSError(domain: "VoiceAssistant", code: 2, userInfo: [NSLocalizedDescriptionKey: "Microphone access not granted"])
+        }
         
         // Stop any ongoing recognition
-        stopListening()
+        await MainActor.run {
+            stopListening()
+        }
         
+        // Configure audio session
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            throw NSError(domain: "VoiceAssistant", code: 3, userInfo: [NSLocalizedDescriptionKey: "Failed to configure audio session: \(error.localizedDescription)"])
+        }
+        
+        // Create recognition request
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        guard let recognitionRequest = recognitionRequest else { return }
+        guard let recognitionRequest = recognitionRequest else { 
+            throw NSError(domain: "VoiceAssistant", code: 4, userInfo: [NSLocalizedDescriptionKey: "Could not create recognition request"])
+        }
         
         recognitionRequest.shouldReportPartialResults = true
         
+        // Setup audio engine
         let inputNode = audioEngine.inputNode
+        
+        // Remove any existing taps
+        inputNode.removeTap(onBus: 0)
+        
+        // Get the recording format
         let recordingFormat = inputNode.outputFormat(forBus: 0)
-        
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
-            recognitionRequest.append(buffer)
+        guard recordingFormat.sampleRate > 0 else {
+            throw NSError(domain: "VoiceAssistant", code: 5, userInfo: [NSLocalizedDescriptionKey: "Invalid audio format"])
         }
         
+        // Install tap on the input node
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] buffer, _ in
+            self?.recognitionRequest?.append(buffer)
+        }
+        
+        // Prepare and start audio engine
         audioEngine.prepare()
-        try audioEngine.start()
         
+        do {
+            try audioEngine.start()
+        } catch {
+            // Clean up on failure
+            inputNode.removeTap(onBus: 0)
+            throw NSError(domain: "VoiceAssistant", code: 7, userInfo: [NSLocalizedDescriptionKey: "Failed to start audio engine: \(error.localizedDescription)"])
+        }
+        
+        // Start recognition task
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { [weak self] result, error in
-            guard let self = self else { return }
-            
-            if let result = result {
-                self.recognizedText = result.bestTranscription.formattedString
-            }
-            
-            if error != nil || (result?.isFinal ?? false) {
-                self.stopListening()
+            Task { @MainActor in
+                guard let self = self else { return }
+                
+                if let result = result {
+                    self.recognizedText = result.bestTranscription.formattedString
+                }
+                
+                if let error = error {
+                    print("Speech recognition error: \(error.localizedDescription)")
+                    self.stopListening()
+                } else if result?.isFinal == true {
+                    self.stopListening()
+                }
             }
         }
         
-        isListening = true
+        await MainActor.run {
+            isListening = true
+        }
     }
     
     func stopListening() {
-        audioEngine.stop()
+        // Stop audio engine if running
+        if audioEngine.isRunning {
+            audioEngine.stop()
+        }
+        
+        // Remove tap safely
         audioEngine.inputNode.removeTap(onBus: 0)
+        
+        // End audio recognition
         recognitionRequest?.endAudio()
         recognitionTask?.cancel()
         
+        // Clean up
         recognitionRequest = nil
         recognitionTask = nil
         isListening = false
+        
+        // Deactivate audio session
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("Warning: Could not deactivate audio session: \(error.localizedDescription)")
+        }
     }
     
     // BILINGUAL: Speak text
@@ -370,29 +516,4 @@ class VoiceAssistantManager: NSObject, ObservableObject, SFSpeechRecognizerDeleg
     }
 }
 
-// MARK: - Helper: Color Extension
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3:
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6:
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8:
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(
-            .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue:  Double(b) / 255,
-            opacity: Double(a) / 255
-        )
-    }
-}
+

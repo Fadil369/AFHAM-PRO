@@ -1,0 +1,88 @@
+{
+  "name": "afham-website",
+  "version": "1.0.0",
+  "description": "AFHAM AI-powered healthcare document understanding website",
+  "keywords": ["healthcare", "AI", "documents", "Arabic", "NPHIES", "FHIR"],
+  "author": "BrainSAIT Technologies",
+  "license": "MIT",
+  "homepage": "https://afham.brainsait.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brainsait/afham-website"
+  },
+  "bugs": {
+    "url": "https://github.com/brainsait/afham-website/issues",
+    "email": "support@brainsait.io"
+  },
+  "scripts": {
+    "dev": "hugo server --buildDrafts --buildFuture",
+    "build": "hugo --minify",
+    "build:staging": "hugo --environment staging --minify",
+    "build:production": "hugo --environment production --minify",
+    "clean": "rm -rf public resources",
+    "deploy": "npm run build && ./deploy/cloudflare-deploy.sh",
+    "deploy:staging": "npm run build:staging && ./deploy/cloudflare-deploy.sh deploy-staging",
+    "lint": "npm run lint:css && npm run lint:js && npm run lint:html",
+    "lint:css": "stylelint 'assets/css/**/*.css'",
+    "lint:js": "eslint 'assets/js/**/*.js'",
+    "lint:html": "html5validator --root public",
+    "format": "prettier --write 'assets/**/*.{css,js,json}'",
+    "optimize": "npm run optimize:images && npm run optimize:css && npm run optimize:js",
+    "optimize:images": "imageoptim 'assets/images/**/*.{png,jpg,jpeg}'",
+    "optimize:css": "cleancss -o assets/css/main.min.css assets/css/main.css",
+    "optimize:js": "uglifyjs assets/js/main.js -o assets/js/main.min.js -c -m",
+    "test": "npm run lint && npm run build && npm run test:lighthouse",
+    "test:lighthouse": "lhci autorun",
+    "security": "npm audit && snyk test",
+    "validate": "html5validator --root public && npm run test:accessibility",
+    "test:accessibility": "axe-core --dir public --include '*.html'",
+    "serve": "npm run build && http-server public -p 8080 -c-1",
+    "watch": "hugo server --watch --buildDrafts",
+    "hugo:new": "hugo new",
+    "hugo:version": "hugo version"
+  },
+  "devDependencies": {
+    "@axe-core/cli": "^4.8.2",
+    "@lhci/cli": "^0.12.0",
+    "clean-css-cli": "^5.6.3",
+    "eslint": "^8.57.0",
+    "html5validator": "^0.4.2",
+    "http-server": "^14.1.1",
+    "imageoptim-cli": "^3.1.9",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "prettier": "^3.1.1",
+    "snyk": "^1.1275.0",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0",
+    "uglify-js": "^3.17.4",
+    "wrangler": "^3.22.1"
+  },
+  "dependencies": {
+    "hugo-extended": "^0.121.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not op_mini all"
+  ],
+  "lint-staged": {
+    "*.{css,scss}": ["stylelint --fix", "prettier --write"],
+    "*.{js,ts}": ["eslint --fix", "prettier --write"],
+    "*.{json,md}": ["prettier --write"]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "config": {
+    "hugo_version": "0.121.1",
+    "node_version": "18.19.0"
+  }
+}

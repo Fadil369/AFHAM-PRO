@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | AFHAM - BrainSAIT</title>
+    <meta name="description" content="Get in touch with the AFHAM team for support, partnerships, or general inquiries">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/contact.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="lang-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+        <button id="lang-ar" class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/">
+                    <img src="/assets/images/afham-logo.svg" alt="AFHAM Logo" class="nav-logo">
+                    <span class="nav-title">AFHAM</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <a href="/docs" class="btn btn-outline btn-sm" data-en="Documentation" data-ar="التوثيق">Documentation</a>
+                <a href="/" class="btn btn-primary btn-sm" data-en="Home" data-ar="الرئيسية">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-en="Get in Touch" data-ar="تواصل معنا">Get in Touch</h1>
+                <p data-en="Have questions about AFHAM? Need support? Want to partner with us? We'd love to hear from you." data-ar="لديكم أسئلة حول أفهم؟ تحتاجون دعماً؟ تريدون الشراكة معنا؟ نحب أن نسمع منكم.">
+                    Have questions about AFHAM? Need support? Want to partner with us? We'd love to hear from you.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Options -->
+    <section class="contact-options">
+        <div class="container">
+            <div class="options-grid">
+                <div class="contact-option">
+                    <div class="option-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 data-en="Technical Support" data-ar="الدعم الفني">Technical Support</h3>
+                    <p data-en="Get help with integration, troubleshooting, and technical questions" data-ar="احصلوا على المساعدة في التكامل واستكشاف الأخطاء والأسئلة التقنية">Get help with integration, troubleshooting, and technical questions</p>
+                    <div class="contact-details">
+                        <a href="mailto:support@brainsait.io" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>support@brainsait.io</span>
+                        </a>
+                        <span class="response-time" data-en="Response time: 24 hours" data-ar="وقت الاستجابة: 24 ساعة">Response time: 24 hours</span>
+                    </div>
+                </div>
+
+                <div class="contact-option">
+                    <div class="option-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 data-en="Business & Partnerships" data-ar="الأعمال والشراكات">Business & Partnerships</h3>
+                    <p data-en="Explore partnership opportunities, enterprise solutions, and business inquiries" data-ar="استكشفوا فرص الشراكة والحلول المؤسسية والاستفسارات التجارية">Explore partnership opportunities, enterprise solutions, and business inquiries</p>
+                    <div class="contact-details">
+                        <a href="mailto:business@brainsait.io" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>business@brainsait.io</span>
+                        </a>
+                        <span class="response-time" data-en="Response time: 48 hours" data-ar="وقت الاستجابة: 48 ساعة">Response time: 48 hours</span>
+                    </div>
+                </div>
+
+                <div class="contact-option">
+                    <div class="option-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 data-en="Privacy & Compliance" data-ar="الخصوصية والامتثال">Privacy & Compliance</h3>
+                    <p data-en="Questions about data protection, PDPL compliance, and healthcare regulations" data-ar="أسئلة حول حماية البيانات والامتثال لقانون حماية البيانات الشخصية واللوائح الصحية">Questions about data protection, PDPL compliance, and healthcare regulations</p>
+                    <div class="contact-details">
+                        <a href="mailto:privacy@brainsait.io" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>privacy@brainsait.io</span>
+                        </a>
+                        <span class="response-time" data-en="Response time: 72 hours" data-ar="وقت الاستجابة: 72 ساعة">Response time: 72 hours</span>
+                    </div>
+                </div>
+
+                <div class="contact-option">
+                    <div class="option-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 data-en="General Inquiries" data-ar="الاستفسارات العامة">General Inquiries</h3>
+                    <p data-en="Any other questions, feedback, or general information requests" data-ar="أي أسئلة أخرى أو تعليقات أو طلبات معلومات عامة">Any other questions, feedback, or general information requests</p>
+                    <div class="contact-details">
+                        <a href="mailto:info@brainsait.io" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@brainsait.io</span>
+                        </a>
+                        <span class="response-time" data-en="Response time: 48 hours" data-ar="وقت الاستجابة: 48 ساعة">Response time: 48 hours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 data-en="Send us a Message" data-ar="أرسلوا لنا رسالة">Send us a Message</h2>
+                    <p data-en="Fill out the form below and we'll get back to you as soon as possible" data-ar="املؤوا النموذج أدناه وسنعود إليكم في أسرع وقت ممكن">Fill out the form below and we'll get back to you as soon as possible</p>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" data-en="First Name *" data-ar="الاسم الأول *">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" data-en="Last Name *" data-ar="اسم العائلة *">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" data-en="Email Address *" data-ar="عنوان البريد الإلكتروني *">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization" data-en="Organization/Hospital" data-ar="المنظمة/المستشفى">Organization/Hospital</label>
+                        <input type="text" id="organization" name="organization">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inquiryType" data-en="Type of Inquiry *" data-ar="نوع الاستفسار *">Type of Inquiry *</label>
+                        <select id="inquiryType" name="inquiryType" required>
+                            <option value="" data-en="Please select..." data-ar="يرجى الاختيار...">Please select...</option>
+                            <option value="technical" data-en="Technical Support" data-ar="الدعم الفني">Technical Support</option>
+                            <option value="business" data-en="Business Inquiry" data-ar="استفسار تجاري">Business Inquiry</option>
+                            <option value="partnership" data-en="Partnership" data-ar="شراكة">Partnership</option>
+                            <option value="compliance" data-en="Privacy/Compliance" data-ar="الخصوصية/الامتثال">Privacy/Compliance</option>
+                            <option value="general" data-en="General Question" data-ar="سؤال عام">General Question</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject" data-en="Subject *" data-ar="الموضوع *">Subject *</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" data-en="Message *" data-ar="الرسالة *">Message *</label>
+                        <textarea id="message" name="message" rows="6" required data-en="Please provide as much detail as possible..." data-ar="يرجى تقديم أكبر قدر من التفاصيل الممكنة..."></textarea>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text" data-en="I agree to the " data-ar="أوافق على ">I agree to the </span>
+                            <a href="/privacy" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a>
+                            <span data-en=" and consent to processing of my personal data" data-ar=" وأوافق على معالجة بياناتي الشخصية"> and consent to processing of my personal data</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text" data-en="Subscribe to our newsletter for updates about AFHAM" data-ar="اشتركوا في نشرتنا الإخبارية للحصول على تحديثات حول أفهم">Subscribe to our newsletter for updates about AFHAM</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-paper-plane"></i>
+                            <span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Form Success Message -->
+            <div class="form-success" id="formSuccess" style="display: none;">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 data-en="Message Sent Successfully!" data-ar="تم إرسال الرسالة بنجاح!">Message Sent Successfully!</h3>
+                <p data-en="Thank you for contacting us. We'll get back to you within our stated response time." data-ar="شكراً لكم للتواصل معنا. سنعود إليكم خلال وقت الاستجابة المحدد.">Thank you for contacting us. We'll get back to you within our stated response time.</p>
+                <button class="btn btn-outline" onclick="resetForm()" data-en="Send Another Message" data-ar="إرسال رسالة أخرى">Send Another Message</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alternative Contact Methods -->
+    <section class="alternative-contact">
+        <div class="container">
+            <h2 data-en="Other Ways to Reach Us" data-ar="طرق أخرى للوصول إلينا">Other Ways to Reach Us</h2>
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <h4 data-en="Join our Discord" data-ar="انضموا إلى Discord">Join our Discord</h4>
+                    <p data-en="Real-time support and community discussions" data-ar="دعم فوري ومناقشات المجتمع">Real-time support and community discussions</p>
+                    <a href="https://discord.gg/afham" class="btn btn-outline btn-sm">
+                        <span data-en="Join Discord" data-ar="انضموا لـ Discord">Join Discord</span>
+                    </a>
+                </div>
+
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h4 data-en="GitHub Issues" data-ar="مشاكل GitHub">GitHub Issues</h4>
+                    <p data-en="Report bugs and request features" data-ar="الإبلاغ عن الأخطاء وطلب المميزات">Report bugs and request features</p>
+                    <a href="https://github.com/brainsait/afham/issues" class="btn btn-outline btn-sm">
+                        <span data-en="Open Issue" data-ar="فتح مشكلة">Open Issue</span>
+                    </a>
+                </div>
+
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h4 data-en="Documentation" data-ar="التوثيق">Documentation</h4>
+                    <p data-en="Find answers in our comprehensive guides" data-ar="ابحثوا عن الإجابات في أدلتنا الشاملة">Find answers in our comprehensive guides</p>
+                    <a href="/docs" class="btn btn-outline btn-sm">
+                        <span data-en="Browse Docs" data-ar="تصفح التوثيق">Browse Docs</span>
+                    </a>
+                </div>
+
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h4 data-en="Emergency Support" data-ar="دعم الطوارئ">Emergency Support</h4>
+                    <p data-en="Critical healthcare issues only" data-ar="قضايا الرعاية الصحية الحرجة فقط">Critical healthcare issues only</p>
+                    <a href="tel:+966-XXX-XXXX" class="btn btn-outline btn-sm">
+                        <span data-en="Call Now" data-ar="اتصلوا الآن">Call Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2 data-en="Stay Updated" data-ar="ابقوا على اطلاع">Stay Updated</h2>
+                    <p data-en="Get the latest news, updates, and insights about AFHAM and healthcare AI directly in your inbox." data-ar="احصلوا على آخر الأخبار والتحديثات والرؤى حول أفهم والذكاء الاصطناعي في الرعاية الصحية مباشرة في صندوق الوارد.">Get the latest news, updates, and insights about AFHAM and healthcare AI directly in your inbox.</p>
+                </div>
+                
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="newsletter-input">
+                        <input type="email" id="newsletterEmail" name="email" required data-en="Enter your email address" data-ar="أدخلوا عنوان بريدكم الإلكتروني">
+                        <button type="submit" class="btn btn-primary">
+                            <span data-en="Subscribe" data-ar="اشتراك">Subscribe</span>
+                        </button>
+                    </div>
+                    <p class="newsletter-privacy" data-en="We respect your privacy. Unsubscribe at any time." data-ar="نحترم خصوصيتكم. يمكنكم إلغاء الاشتراك في أي وقت.">We respect your privacy. Unsubscribe at any time.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="/assets/images/brainsait-logo.svg" alt="BrainSAIT">
+                    <p data-en="Transforming healthcare through intelligent AI solutions" data-ar="تحويل الرعاية الصحية من خلال حلول الذكاء الاصطناعي الذكية">Transforming healthcare through intelligent AI solutions</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-en="Contact" data-ar="الاتصال">Contact</h4>
+                        <ul>
+                            <li><a href="mailto:support@brainsait.io" data-en="Support" data-ar="الدعم">Support</a></li>
+                            <li><a href="mailto:business@brainsait.io" data-en="Business" data-ar="الأعمال">Business</a></li>
+                            <li><a href="/contact" data-en="Contact Form" data-ar="نموذج الاتصال">Contact Form</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BrainSAIT Technologies. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/contact-forms.js"></script>
+</body>
+</html>

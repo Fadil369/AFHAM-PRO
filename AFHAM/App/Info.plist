@@ -6,22 +6,213 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>أفهم - AFHAM</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>PDF Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.adobe.pdf</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>Microsoft Word Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.openxmlformats.wordprocessingml.document</string>
+				<string>com.microsoft.word.doc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>Microsoft Excel Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.openxmlformats.spreadsheetml.sheet</string>
+				<string>com.microsoft.excel.xls</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>Microsoft PowerPoint Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.openxmlformats.presentationml.presentation</string>
+				<string>com.microsoft.powerpoint.ppt</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>Text Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.plain-text</string>
+				<string>public.rtf</string>
+				<string>public.text</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>HTML Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.html</string>
+				<string>public.xhtml</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>JSON Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.json</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>XML Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.xml</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>Markdown Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>net.daringfireball.markdown</string>
+				<string>public.plain-text</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>CSV Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.comma-separated-values-text</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ar</string>
+	</array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.brainsait.afham</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>afham</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>generativelanguage.googleapis.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>يحتاج أفهم إلى الوصول للمستندات لرفعها وتحليلها للحصول على رؤى ذكية.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>يحتاج أفهم إلى الوصول للميكروفون لتمكين الأوامر الصوتية والتعرف على الكلام لتحليل المستندات.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>يستخدم أفهم التعرف على الكلام لتحويل أوامرك الصوتية إلى نص للاستعلام عن المستندات.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -41,6 +232,10 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>background-processing</string>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
@@ -68,115 +263,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Automatic</string>
-	
-	<!-- PDPL Compliance: Privacy Descriptions -->
-	<key>NSMicrophoneUsageDescription</key>
-	<string>AFHAM needs access to your microphone to enable voice commands and speech recognition for document analysis.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>يحتاج أفهم إلى الوصول للميكروفون لتمكين الأوامر الصوتية والتعرف على الكلام لتحليل المستندات.</string>
-	
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>AFHAM uses speech recognition to convert your voice commands into text for document queries.</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>يستخدم أفهم التعرف على الكلام لتحويل أوامرك الصوتية إلى نص للاستعلام عن المستندات.</string>
-	
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>AFHAM needs access to your documents to upload and analyze them for intelligent insights.</string>
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>يحتاج أفهم إلى الوصول للمستندات لرفعها وتحليلها للحصول على رؤى ذكية.</string>
-	
-	<!-- Document Support -->
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array/>
-			<key>CFBundleTypeName</key>
-			<string>PDF Document</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>com.adobe.pdf</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array/>
-			<key>CFBundleTypeName</key>
-			<string>Microsoft Word Document</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.openxmlformats.wordprocessingml.document</string>
-				<string>com.microsoft.word.doc</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array/>
-			<key>CFBundleTypeName</key>
-			<string>Text Document</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.plain-text</string>
-				<string>public.rtf</string>
-			</array>
-		</dict>
-	</array>
-	
-	<!-- URL Schemes -->
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.brainsait.afham</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>afham</string>
-			</array>
-		</dict>
-	</array>
-	
-	<!-- App Transport Security -->
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>generativelanguage.googleapis.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<false/>
-				<key>NSExceptionMinimumTLSVersion</key>
-				<string>TLSv1.2</string>
-				<key>NSExceptionRequiresForwardSecrecy</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
-	
-	<!-- Localization -->
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>ar</string>
-	</array>
-	
-	<!-- Background Modes -->
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>background-processing</string>
-	</array>
 </dict>
 </plist>

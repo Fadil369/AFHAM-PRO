@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | AFHAM</title>
+    <meta name="description" content="The page you're looking for could not be found. Return to AFHAM homepage.">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="lang-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+        <button id="lang-ar" class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/">
+                    <img src="/assets/images/afham-logo.svg" alt="AFHAM Logo" class="nav-logo">
+                    <span class="nav-title">AFHAM</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <a href="/docs" class="btn btn-outline btn-sm" data-en="Documentation" data-ar="التوثيق">Documentation</a>
+                <a href="/" class="btn btn-primary btn-sm" data-en="Home" data-ar="الرئيسية">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 404 Content -->
+    <main class="error-page">
+        <div class="container">
+            <div class="error-content">
+                <div class="error-visual">
+                    <div class="error-icon">
+                        <i class="fas fa-robot"></i>
+                        <div class="error-code">404</div>
+                    </div>
+                    <div class="floating-elements">
+                        <div class="floating-item item-1">
+                            <i class="fas fa-file-medical"></i>
+                        </div>
+                        <div class="floating-item item-2">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="floating-item item-3">
+                            <i class="fas fa-question"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-text">
+                    <h1 data-en="Page Not Found" data-ar="الصفحة غير موجودة">Page Not Found</h1>
+                    <p class="error-description" data-en="Sorry, we couldn't find the page you're looking for. The page might have been moved, deleted, or you may have entered an incorrect URL." data-ar="عذراً، لم نتمكن من العثور على الصفحة التي تبحث عنها. قد تكون الصفحة نُقلت أو حُذفت، أو ربما أدخلت رابطاً غير صحيح.">
+                        Sorry, we couldn't find the page you're looking for. The page might have been moved, deleted, or you may have entered an incorrect URL.
+                    </p>
+
+                    <div class="error-actions">
+                        <a href="/" class="btn btn-primary">
+                            <i class="fas fa-home"></i>
+                            <span data-en="Back to Home" data-ar="العودة للرئيسية">Back to Home</span>
+                        </a>
+                        <a href="/docs" class="btn btn-outline">
+                            <i class="fas fa-book"></i>
+                            <span data-en="Browse Documentation" data-ar="تصفح التوثيق">Browse Documentation</span>
+                        </a>
+                    </div>
+
+                    <div class="helpful-links">
+                        <h3 data-en="Maybe you're looking for:" data-ar="ربما تبحث عن:">Maybe you're looking for:</h3>
+                        <ul>
+                            <li><a href="/docs" data-en="Documentation" data-ar="التوثيق">Documentation</a></li>
+                            <li><a href="/docs/api" data-en="API Reference" data-ar="مرجع API">API Reference</a></li>
+                            <li><a href="/community" data-en="Community" data-ar="المجتمع">Community</a></li>
+                            <li><a href="/docs/guides" data-en="Getting Started Guide" data-ar="دليل البداية">Getting Started Guide</a></li>
+                            <li><a href="mailto:support@brainsait.io" data-en="Contact Support" data-ar="اتصل بالدعم">Contact Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="/assets/images/brainsait-logo.svg" alt="BrainSAIT">
+                    <p data-en="Transforming healthcare through intelligent AI solutions" data-ar="تحويل الرعاية الصحية من خلال حلول الذكاء الاصطناعي الذكية">Transforming healthcare through intelligent AI solutions</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-en="Support" data-ar="الدعم">Support</h4>
+                        <ul>
+                            <li><a href="/community" data-en="Community" data-ar="المجتمع">Community</a></li>
+                            <li><a href="/docs" data-en="Documentation" data-ar="التوثيق">Documentation</a></li>
+                            <li><a href="mailto:support@brainsait.io" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BrainSAIT Technologies. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/main.js"></script>
+
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px 0;
+            background: linear-gradient(135deg, var(--gray-50) 0%, white 50%, var(--gray-50) 100%);
+        }
+
+        .error-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-16);
+            align-items: center;
+        }
+
+        .error-visual {
+            position: relative;
+            text-align: center;
+        }
+
+        .error-icon {
+            position: relative;
+            display: inline-block;
+        }
+
+        .error-icon i {
+            font-size: 120px;
+            color: var(--primary-color);
+            margin-bottom: var(--space-6);
+        }
+
+        .error-code {
+            font-size: var(--text-6xl);
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: var(--space-4);
+        }
+
+        .floating-item {
+            position: absolute;
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-item i {
+            color: var(--primary-color);
+            font-size: var(--text-xl);
+        }
+
+        .item-1 {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .item-2 {
+            top: 50%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+
+        .item-3 {
+            bottom: 20%;
+            left: 5%;
+            animation-delay: 4s;
+        }
+
+        .error-text h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-6);
+            color: var(--gray-900);
+        }
+
+        .error-description {
+            font-size: var(--text-lg);
+            color: var(--gray-600);
+            margin-bottom: var(--space-8);
+            line-height: 1.7;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: var(--space-4);
+            margin-bottom: var(--space-12);
+        }
+
+        .helpful-links {
+            background: white;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-200);
+        }
+
+        .helpful-links h3 {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--gray-900);
+        }
+
+        .helpful-links ul {
+            list-style: none;
+        }
+
+        .helpful-links li {
+            margin-bottom: var(--space-2);
+        }
+
+        .helpful-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .helpful-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .error-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: var(--space-8);
+            }
+
+            .error-visual {
+                order: -1;
+            }
+
+            .error-icon i {
+                font-size: 80px;
+            }
+
+            .error-code {
+                font-size: var(--text-5xl);
+            }
+
+            .error-text h1 {
+                font-size: var(--text-3xl);
+            }
+
+            .error-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -154,21 +154,21 @@ struct DocumentsView: View {
     private var headerView: some View {
         HStack {
             VStack(alignment: isArabic ? .trailing : .leading, spacing: 4) {
-                Text(.localized(.appTitle))
+                Text(verbatim: String.localized(.appTitle))
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.white)
-                
+
                 Text(isArabic ? "نظام متقدم لفهم المستندات" : "Advanced Document Understanding")
                     .font(.system(size: 14))
                     .foregroundColor(AFHAMConfig.professionalGray)
             }
-            
+
             Spacer()
-            
+
             Button(action: { showingFilePicker = true }) {
                 HStack(spacing: 8) {
                     Image(systemName: "plus.circle.fill")
-                    Text(.localized(.addDocument))
+                    Text(String.localized(.addDocument))
                         .fontWeight(.semibold)
                 }
                 .foregroundColor(.white)
@@ -197,21 +197,21 @@ struct DocumentsView: View {
             Image(systemName: "doc.text.magnifyingglass")
                 .font(.system(size: 80))
                 .foregroundColor(AFHAMConfig.signalTeal.opacity(0.6))
-            
-            Text(.localized(.noDocuments))
+
+            Text(String.localized(.noDocuments))
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-            
-            Text(.localized(.noDocumentsDescription))
+
+            Text(String.localized(.noDocumentsDescription))
                 .font(.body)
                 .foregroundColor(AFHAMConfig.professionalGray)
                 .multilineTextAlignment(.center)
-            
+
             Button(action: { showingFilePicker = true }) {
                 HStack {
                     Image(systemName: "arrow.up.doc.fill")
-                    Text(.localized(.uploadDocument))
+                    Text(String.localized(.uploadDocument))
                         .fontWeight(.semibold)
                 }
                 .foregroundColor(.white)
@@ -388,8 +388,8 @@ struct SettingsView: View {
                         Text("العربية").tag(AFHAMApp.AppLanguage.arabic)
                         Text("English").tag(AFHAMApp.AppLanguage.english)
                     }
-                    .onChange(of: currentLanguage) { newValue in
-                        voiceManager.switchLanguage(to: newValue.locale)
+                    .onChange(of: currentLanguage) { _, newLanguage in
+                        voiceManager.switchLanguage(to: newLanguage.locale)
                     }
                 }
                 

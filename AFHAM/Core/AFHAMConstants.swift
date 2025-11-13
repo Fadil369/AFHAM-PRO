@@ -293,31 +293,31 @@ struct AFHAMConstants {
 // MARK: - BrainSAIT Brand Colors
 struct AFHAMColors {
     // Primary Brand Colors
-    static let midnightBlue = Color(hex: "#1a365d")
-    static let medicalBlue = Color(hex: "#2b6cb8")
-    static let signalTeal = Color(hex: "#0ea5e9")
-    static let deepOrange = Color(hex: "#ea580c")
-    static let professionalGray = Color(hex: "#64748b")
+    static let midnightBlue = Color(hexString: "#1a365d")
+    static let medicalBlue = Color(hexString: "#2b6cb8")
+    static let signalTeal = Color(hexString: "#0ea5e9")
+    static let deepOrange = Color(hexString: "#ea580c")
+    static let professionalGray = Color(hexString: "#64748b")
     
     // Semantic Colors
-    static let success = Color(hex: "#10b981")
-    static let warning = Color(hex: "#f59e0b")
-    static let error = Color(hex: "#ef4444")
-    static let info = Color(hex: "#3b82f6")
+    static let success = Color(hexString: "#10b981")
+    static let warning = Color(hexString: "#f59e0b")
+    static let error = Color(hexString: "#ef4444")
+    static let info = Color(hexString: "#3b82f6")
     
     // Background Colors
-    static let primaryBackground = Color(hex: "#0f172a")
-    static let secondaryBackground = Color(hex: "#1e293b")
-    static let tertiaryBackground = Color(hex: "#334155")
+    static let primaryBackground = Color(hexString: "#0f172a")
+    static let secondaryBackground = Color(hexString: "#1e293b")
+    static let tertiaryBackground = Color(hexString: "#334155")
     
     // Text Colors
     static let primaryText = Color.white
-    static let secondaryText = Color(hex: "#cbd5e1")
-    static let tertiaryText = Color(hex: "#94a3b8")
+    static let secondaryText = Color("#cbd5e1")
+    static let tertiaryText = Color(hexString: "#94a3b8")
     
     // Border Colors
-    static let primaryBorder = Color(hex: "#475569")
-    static let secondaryBorder = Color(hex: "#64748b")
+    static let primaryBorder = Color(hexString: "#475569")
+    static let secondaryBorder = Color(hexString: "#64748b")
     static let focusBorder = signalTeal
     
     // Interactive Colors
@@ -334,8 +334,8 @@ struct AFHAMColors {
 
 // MARK: - Color Extension for Hex Support
 extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+    init(hexString: String) {
+        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
         let a, r, g, b: UInt64
@@ -368,7 +368,7 @@ struct DeviceInfo {
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         let identifier = machineMirror.children.reduce("") { identifier, element in
             guard let value = element.value as? Int8, value != 0 else { return identifier }
-            return identifier + String(UnicodeScalar(UInt8(value))!)
+            return identifier + String(UnicodeScalar(UInt8(value)))
         }
         return identifier
     }

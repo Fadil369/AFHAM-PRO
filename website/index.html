@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFHAM - AI-Powered Document Understanding | BrainSAIT</title>
+    <meta name="description" content="AFHAM (أفهم) - Advanced AI-powered document understanding for healthcare. Supporting Arabic and English with NPHIES compliance.">
+    <meta name="keywords" content="AI, healthcare, documents, Arabic, NPHIES, FHIR, medical AI, BrainSAIT">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://afham.brainsait.io/">
+    <meta property="og:title" content="AFHAM - AI-Powered Document Understanding">
+    <meta property="og:description" content="Advanced AI healthcare assistant supporting Arabic and English with NPHIES compliance">
+    <meta property="og:image" content="https://afham.brainsait.io/assets/images/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://afham.brainsait.io/">
+    <meta property="twitter:title" content="AFHAM - AI-Powered Document Understanding">
+    <meta property="twitter:description" content="Advanced AI healthcare assistant supporting Arabic and English with NPHIES compliance">
+    <meta property="twitter:image" content="https://afham.brainsait.io/assets/images/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/animations.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Analytics -->
+    <script defer data-domain="afham.brainsait.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button id="lang-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+        <button id="lang-ar" class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="/assets/images/afham-logo.svg" alt="AFHAM Logo" class="nav-logo">
+                <span class="nav-title" data-en="AFHAM" data-ar="أفهم">AFHAM</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#features" class="nav-link" data-en="Features" data-ar="المميزات">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#healthcare" class="nav-link" data-en="Healthcare" data-ar="الرعاية الصحية">Healthcare</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/docs" class="nav-link" data-en="Documentation" data-ar="التوثيق">Documentation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/community" class="nav-link" data-en="Community" data-ar="المجتمع">Community</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link nav-cta" data-en="Get Started" data-ar="ابدأ الآن">Get Started</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span data-en="Understand Documents with AI" data-ar="فهم المستندات بالذكاء الاصطناعي">Understand Documents with AI</span>
+                    <span class="gradient-text" data-en="Built for Healthcare" data-ar="مصمم للرعاية الصحية">Built for Healthcare</span>
+                </h1>
+                
+                <p class="hero-description" data-en="AFHAM (أفهم) transforms medical documents into actionable insights with AI-powered analysis. Supporting Arabic and English with full NPHIES compliance for Saudi healthcare." data-ar="أفهم يحول المستندات الطبية إلى رؤى قابلة للتنفيذ باستخدام التحليل المدعوم بالذكاء الاصطناعي. يدعم العربية والإنجليزية مع الامتثال الكامل لـ NPHIES للرعاية الصحية السعودية.">
+                    AFHAM (أفهم) transforms medical documents into actionable insights with AI-powered analysis. Supporting Arabic and English with full NPHIES compliance for Saudi healthcare.
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="https://apps.apple.com/app/afham" class="btn btn-primary">
+                        <i class="fab fa-apple"></i>
+                        <span data-en="Download for iOS" data-ar="تحميل لـ iOS">Download for iOS</span>
+                    </a>
+                    <a href="/docs" class="btn btn-secondary">
+                        <i class="fas fa-book"></i>
+                        <span data-en="View Documentation" data-ar="عرض التوثيق">View Documentation</span>
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">99.5%</span>
+                        <span class="stat-label" data-en="Clinical Accuracy" data-ar="الدقة السريرية">Clinical Accuracy</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">NPHIES</span>
+                        <span class="stat-label" data-en="Compliant" data-ar="متوافق">Compliant</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label" data-en="Languages" data-ar="لغات">Languages</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <img src="/assets/images/app-screenshot.png" alt="AFHAM App Screenshot" class="phone-screen">
+                    <div class="floating-elements">
+                        <div class="floating-card card-1">
+                            <i class="fas fa-file-medical"></i>
+                            <span data-en="Medical Report" data-ar="تقرير طبي">Medical Report</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i class="fas fa-brain"></i>
+                            <span data-en="AI Analysis" data-ar="تحليل بالذكاء الاصطناعي">AI Analysis</span>
+                        </div>
+                        <div class="floating-card card-3">
+                            <i class="fas fa-check-circle"></i>
+                            <span data-en="NPHIES Ready" data-ar="جاهز لـ NPHIES">NPHIES Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Background Elements -->
+        <div class="hero-bg">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Powerful Features for Healthcare" data-ar="ميزات قوية للرعاية الصحية">Powerful Features for Healthcare</h2>
+                <p class="section-description" data-en="Advanced AI capabilities designed specifically for medical document processing and analysis" data-ar="قدرات ذكاء اصطناعي متقدمة مصممة خصيصاً لمعالجة وتحليل المستندات الطبية">Advanced AI capabilities designed specifically for medical document processing and analysis</p>
+            </div>
+            
+            <div class="features-grid">
+                <!-- Document Understanding -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-text"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Smart Document Analysis" data-ar="تحليل ذكي للمستندات">Smart Document Analysis</h3>
+                    <p class="feature-description" data-en="Process medical documents, lab reports, and clinical notes with advanced OCR and AI understanding" data-ar="معالجة المستندات الطبية وتقارير المختبر والملاحظات السريرية بتقنية OCR المتقدمة وفهم الذكاء الاصطناعي">Process medical documents, lab reports, and clinical notes with advanced OCR and AI understanding</p>
+                    <ul class="feature-list">
+                        <li data-en="PDF & Image Processing" data-ar="معالجة PDF والصور">PDF & Image Processing</li>
+                        <li data-en="Handwritten Text Recognition" data-ar="التعرف على النص المكتوب بخط اليد">Handwritten Text Recognition</li>
+                        <li data-en="Medical Terminology Extraction" data-ar="استخراج المصطلحات الطبية">Medical Terminology Extraction</li>
+                    </ul>
+                </div>
+
+                <!-- Bilingual Support -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Bilingual Healthcare AI" data-ar="ذكاء اصطناعي ثنائي اللغة للرعاية الصحية">Bilingual Healthcare AI</h3>
+                    <p class="feature-description" data-en="Native Arabic and English support with medical terminology understanding for seamless healthcare workflows" data-ar="دعم أصلي للعربية والإنجليزية مع فهم المصطلحات الطبية لسير عمل سلس في الرعاية الصحية">Native Arabic and English support with medical terminology understanding for seamless healthcare workflows</p>
+                    <ul class="feature-list">
+                        <li data-en="Real-time Translation" data-ar="ترجمة فورية">Real-time Translation</li>
+                        <li data-en="RTL Interface Support" data-ar="دعم واجهة من اليمين لليسار">RTL Interface Support</li>
+                        <li data-en="Cultural Adaptation" data-ar="التكيف الثقافي">Cultural Adaptation</li>
+                    </ul>
+                </div>
+
+                <!-- Voice Assistant -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Voice-Powered Interaction" data-ar="تفاعل صوتي ذكي">Voice-Powered Interaction</h3>
+                    <p class="feature-description" data-en="Hands-free document queries and medical consultations using advanced speech recognition" data-ar="استفسارات المستندات والاستشارات الطبية بدون استخدام اليدين باستخدام التعرف المتقدم على الكلام">Hands-free document queries and medical consultations using advanced speech recognition</p>
+                    <ul class="feature-list">
+                        <li data-en="Arabic & English Speech" data-ar="كلام عربي وإنجليزي">Arabic & English Speech</li>
+                        <li data-en="Medical Voice Commands" data-ar="أوامر صوتية طبية">Medical Voice Commands</li>
+                        <li data-en="Clinical Dictation" data-ar="إملاء سريري">Clinical Dictation</li>
+                    </ul>
+                </div>
+
+                <!-- NPHIES Compliance -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="NPHIES Compliance" data-ar="توافق مع NPHIES">NPHIES Compliance</h3>
+                    <p class="feature-description" data-en="Built-in compliance with Saudi healthcare standards including FHIR R4 and PDPL data protection" data-ar="توافق مدمج مع معايير الرعاية الصحية السعودية بما في ذلك FHIR R4 وحماية بيانات PDPL">Built-in compliance with Saudi healthcare standards including FHIR R4 and PDPL data protection</p>
+                    <ul class="feature-list">
+                        <li data-en="FHIR R4 Standards" data-ar="معايير FHIR R4">FHIR R4 Standards</li>
+                        <li data-en="PDPL Data Protection" data-ar="حماية بيانات PDPL">PDPL Data Protection</li>
+                        <li data-en="Audit Trail Logging" data-ar="تسجيل مسار التدقيق">Audit Trail Logging</li>
+                    </ul>
+                </div>
+
+                <!-- Smart Chat -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Intelligent Chat Interface" data-ar="واجهة دردشة ذكية">Intelligent Chat Interface</h3>
+                    <p class="feature-description" data-en="Context-aware conversations about medical documents with citation tracking and clinical insights" data-ar="محادثات واعية بالسياق حول المستندات الطبية مع تتبع الاستشهادات والرؤى السريرية">Context-aware conversations about medical documents with citation tracking and clinical insights</p>
+                    <ul class="feature-list">
+                        <li data-en="Document Citations" data-ar="استشهادات المستندات">Document Citations</li>
+                        <li data-en="Clinical Context" data-ar="السياق السريري">Clinical Context</li>
+                        <li data-en="Smart Suggestions" data-ar="اقتراحات ذكية">Smart Suggestions</li>
+                    </ul>
+                </div>
+
+                <!-- Security -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Healthcare-Grade Security" data-ar="أمان بمستوى الرعاية الصحية">Healthcare-Grade Security</h3>
+                    <p class="feature-description" data-en="Enterprise-level security with end-to-end encryption and comprehensive audit trails for medical data" data-ar="أمان بمستوى المؤسسات مع تشفير شامل ومسارات تدقيق شاملة للبيانات الطبية">Enterprise-level security with end-to-end encryption and comprehensive audit trails for medical data</p>
+                    <ul class="feature-list">
+                        <li data-en="AES-256 Encryption" data-ar="تشفير AES-256">AES-256 Encryption</li>
+                        <li data-en="Zero-Trust Architecture" data-ar="هندسة عدم الثقة">Zero-Trust Architecture</li>
+                        <li data-en="SOC 2 Compliance" data-ar="توافق SOC 2">SOC 2 Compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Healthcare Integration Section -->
+    <section id="healthcare" class="healthcare-section">
+        <div class="container">
+            <div class="healthcare-content">
+                <div class="healthcare-text">
+                    <h2 class="section-title" data-en="Built for Saudi Healthcare" data-ar="مصمم للرعاية الصحية السعودية">Built for Saudi Healthcare</h2>
+                    <p class="healthcare-description" data-en="AFHAM is specifically designed to meet the unique requirements of the Saudi healthcare system, with full NPHIES compliance and Arabic language support." data-ar="تم تصميم أفهم خصيصاً لتلبية المتطلبات الفريدة لنظام الرعاية الصحية السعودي، مع التوافق الكامل مع NPHIES ودعم اللغة العربية.">
+                        AFHAM is specifically designed to meet the unique requirements of the Saudi healthcare system, with full NPHIES compliance and Arabic language support.
+                    </p>
+                    
+                    <div class="compliance-badges">
+                        <div class="badge">
+                            <img src="/assets/images/nphies-badge.svg" alt="NPHIES Compliant">
+                            <span data-en="NPHIES Certified" data-ar="معتمد من NPHIES">NPHIES Certified</span>
+                        </div>
+                        <div class="badge">
+                            <img src="/assets/images/fhir-badge.svg" alt="FHIR R4 Compatible">
+                            <span data-en="FHIR R4 Compatible" data-ar="متوافق مع FHIR R4">FHIR R4 Compatible</span>
+                        </div>
+                        <div class="badge">
+                            <img src="/assets/images/pdpl-badge.svg" alt="PDPL Compliant">
+                            <span data-en="PDPL Compliant" data-ar="متوافق مع PDPL">PDPL Compliant</span>
+                        </div>
+                    </div>
+                    
+                    <div class="healthcare-features">
+                        <div class="healthcare-feature">
+                            <i class="fas fa-hospital"></i>
+                            <div>
+                                <h4 data-en="Hospital Integration" data-ar="تكامل المستشفيات">Hospital Integration</h4>
+                                <p data-en="Seamless EMR integration with major healthcare systems" data-ar="تكامل سلس مع السجلات الطبية الإلكترونية مع أنظمة الرعاية الصحية الرئيسية">Seamless EMR integration with major healthcare systems</p>
+                            </div>
+                        </div>
+                        <div class="healthcare-feature">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <h4 data-en="Patient Privacy" data-ar="خصوصية المرضى">Patient Privacy</h4>
+                                <p data-en="PDPL-compliant data handling with audit trails" data-ar="التعامل مع البيانات المتوافق مع PDPL مع مسارات التدقيق">PDPL-compliant data handling with audit trails</p>
+                            </div>
+                        </div>
+                        <div class="healthcare-feature">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <h4 data-en="Arabic Medical Terms" data-ar="المصطلحات الطبية العربية">Arabic Medical Terms</h4>
+                                <p data-en="Comprehensive Arabic medical vocabulary and terminology" data-ar="مفردات ومصطلحات طبية عربية شاملة">Comprehensive Arabic medical vocabulary and terminology</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="healthcare-visual">
+                    <div class="integration-diagram">
+                        <div class="diagram-center">
+                            <img src="/assets/images/afham-icon.svg" alt="AFHAM">
+                            <span>AFHAM</span>
+                        </div>
+                        <div class="diagram-connections">
+                            <div class="connection-item">
+                                <img src="/assets/images/nphies-logo.svg" alt="NPHIES">
+                                <span>NPHIES</span>
+                            </div>
+                            <div class="connection-item">
+                                <img src="/assets/images/fhir-logo.svg" alt="FHIR">
+                                <span>FHIR R4</span>
+                            </div>
+                            <div class="connection-item">
+                                <img src="/assets/images/emr-icon.svg" alt="EMR">
+                                <span data-en="EMR Systems" data-ar="أنظمة السجلات الطبية">EMR Systems</span>
+                            </div>
+                            <div class="connection-item">
+                                <img src="/assets/images/hospital-icon.svg" alt="Hospital">
+                                <span data-en="Hospitals" data-ar="المستشفيات">Hospitals</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title" data-en="Ready to Transform Your Healthcare Workflow?" data-ar="مستعد لتحويل سير عمل الرعاية الصحية الخاص بك؟">Ready to Transform Your Healthcare Workflow?</h2>
+                <p class="cta-description" data-en="Join healthcare professionals across Saudi Arabia who are using AFHAM to streamline document processing and improve patient care." data-ar="انضم إلى المهنيين الصحيين في جميع أنحاء المملكة العربية السعودية الذين يستخدمون أفهم لتبسيط معالجة المستندات وتحسين رعاية المرضى.">Join healthcare professionals across Saudi Arabia who are using AFHAM to streamline document processing and improve patient care.</p>
+                
+                <div class="cta-actions">
+                    <a href="https://apps.apple.com/app/afham" class="btn btn-primary btn-large">
+                        <i class="fab fa-apple"></i>
+                        <span data-en="Download AFHAM" data-ar="تحميل أفهم">Download AFHAM</span>
+                    </a>
+                    <a href="/docs" class="btn btn-outline btn-large">
+                        <i class="fas fa-book-open"></i>
+                        <span data-en="View Documentation" data-ar="عرض التوثيق">View Documentation</span>
+                    </a>
+                </div>
+                
+                <div class="cta-note">
+                    <p data-en="Free for healthcare professionals • NPHIES compliant • Arabic & English support" data-ar="مجاني للمهنيين الصحيين • متوافق مع NPHIES • دعم العربية والإنجليزية">Free for healthcare professionals • NPHIES compliant • Arabic & English support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="/assets/images/brainsait-logo.svg" alt="BrainSAIT">
+                    <p data-en="Transforming healthcare through intelligent AI solutions" data-ar="تحويل الرعاية الصحية من خلال حلول الذكاء الاصطناعي الذكية">Transforming healthcare through intelligent AI solutions</p>
+                    <div class="social-links">
+                        <a href="https://twitter.com/brainsait" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://linkedin.com/company/brainsait" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/brainsait" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-en="Product" data-ar="المنتج">Product</h4>
+                        <ul>
+                            <li><a href="#features" data-en="Features" data-ar="المميزات">Features</a></li>
+                            <li><a href="#healthcare" data-en="Healthcare" data-ar="الرعاية الصحية">Healthcare</a></li>
+                            <li><a href="/pricing" data-en="Pricing" data-ar="الأسعار">Pricing</a></li>
+                            <li><a href="/changelog" data-en="Changelog" data-ar="سجل التغييرات">Changelog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 data-en="Developers" data-ar="المطورون">Developers</h4>
+                        <ul>
+                            <li><a href="/docs" data-en="Documentation" data-ar="التوثيق">Documentation</a></li>
+                            <li><a href="/docs/api" data-en="API Reference" data-ar="مرجع API">API Reference</a></li>
+                            <li><a href="/docs/guides" data-en="Guides" data-ar="الأدلة">Guides</a></li>
+                            <li><a href="/docs/examples" data-en="Examples" data-ar="أمثلة">Examples</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 data-en="Support" data-ar="الدعم">Support</h4>
+                        <ul>
+                            <li><a href="/community" data-en="Community" data-ar="المجتمع">Community</a></li>
+                            <li><a href="/support" data-en="Help Center" data-ar="مركز المساعدة">Help Center</a></li>
+                            <li><a href="mailto:support@brainsait.io" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</a></li>
+                            <li><a href="/status" data-en="Status" data-ar="الحالة">Status</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 data-en="Company" data-ar="الشركة">Company</h4>
+                        <ul>
+                            <li><a href="https://brainsait.io/about" data-en="About" data-ar="حول">About</a></li>
+                            <li><a href="https://brainsait.io/careers" data-en="Careers" data-ar="الوظائف">Careers</a></li>
+                            <li><a href="/privacy" data-en="Privacy" data-ar="الخصوصية">Privacy</a></li>
+                            <li><a href="/terms" data-en="Terms" data-ar="الشروط">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 BrainSAIT Technologies. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+                    <div class="footer-bottom-links">
+                        <a href="/privacy" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a>
+                        <a href="/terms" data-en="Terms of Service" data-ar="شروط الخدمة">Terms of Service</a>
+                        <a href="/cookies" data-en="Cookie Policy" data-ar="سياسة ملفات تعريف الارتباط">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/animations.js"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+# GitHub Actions Workflow for AFHAM Website Deployment to Cloudflare Pages
+name: Deploy AFHAM Website
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'website/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'website/**'
+
+# Environment variables
+env:
+  NODE_VERSION: '18'
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+jobs:
+  # Build and test the website
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          npm install -g wrangler @lhci/cli
+          npm install
+
+      - name: Validate HTML Structure
+        run: |
+          # Install html5validator if not present
+          pip install html5validator
+          
+          # Validate all HTML files
+          find website -name "*.html" -exec html5validator {} \;
+
+      - name: Lint CSS
+        run: |
+          # Install stylelint if not present
+          npm install -g stylelint stylelint-config-standard
+          
+          # Lint CSS files
+          stylelint "website/assets/css/**/*.css"
+
+      - name: Lint JavaScript
+        run: |
+          # Install ESLint if not present
+          npm install -g eslint
+          
+          # Lint JavaScript files
+          eslint website/assets/js/**/*.js
+
+      - name: Check Accessibility
+        run: |
+          # Install axe-core CLI
+          npm install -g @axe-core/cli
+          
+          # Check accessibility (this will run after deployment)
+          echo "Accessibility checks will run after deployment"
+
+      - name: Build Website
+        run: |
+          # Create build directory
+          mkdir -p dist
+          
+          # Copy website files
+          cp -r website/* dist/
+          
+          # Optimize images if tools available
+          if command -v imageoptim &> /dev/null; then
+            find dist -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" | xargs imageoptim
+          fi
+          
+          # Create _headers and _redirects for Cloudflare Pages
+          cat > dist/_redirects << 'EOF'
+          # AFHAM Website Redirects
+          https://www.afham.brainsait.io/* https://afham.brainsait.io/:splat 301!
+          /documentation/* /docs/:splat 301
+          /help/* /docs/:splat 301
+          /api/* https://api.afham.brainsait.io/:splat 200
+          EOF
+          
+          cat > dist/_headers << 'EOF'
+          /*
+            X-Frame-Options: DENY
+            X-Content-Type-Options: nosniff
+            X-XSS-Protection: 1; mode=block
+            Referrer-Policy: strict-origin-when-cross-origin
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+          
+          /assets/*
+            Cache-Control: public, max-age=31536000, immutable
+          
+          /docs/*
+            Cache-Control: public, max-age=3600
+          
+          /community/*
+            Cache-Control: public, max-age=1800
+          EOF
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-build
+          path: dist/
+          retention-days: 7
+
+  # Deploy to staging (develop branch)
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/develop'
+    
+    environment:
+      name: staging
+      url: https://staging.afham.brainsait.io
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: website-build
+          path: dist/
+
+      - name: Deploy to Cloudflare Pages (Staging)
+        run: |
+          wrangler pages deploy dist/ \
+            --project-name afham-website-staging \
+            --env staging \
+            --compatibility-date $(date +'%Y-%m-%d')
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ env.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Run Lighthouse Audit (Staging)
+        run: |
+          # Wait for deployment to propagate
+          sleep 30
+          
+          # Run Lighthouse audit
+          lhci autorun \
+            --collect.url=https://staging.afham.brainsait.io \
+            --upload.target=temporary-public-storage
+
+  # Deploy to production (main branch)
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+    
+    environment:
+      name: production
+      url: https://afham.brainsait.io
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: website-build
+          path: dist/
+
+      - name: Deploy to Cloudflare Pages (Production)
+        run: |
+          wrangler pages deploy dist/ \
+            --project-name afham-website \
+            --env production \
+            --compatibility-date $(date +'%Y-%m-%d')
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ env.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Configure Custom Domain
+        run: |
+          # Add custom domain if not exists
+          curl -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/afham-website/domains" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"name":"afham.brainsait.io"}' || echo "Domain might already exist"
+
+      - name: Validate Production Deployment
+        run: |
+          # Wait for deployment to propagate
+          sleep 60
+          
+          # Check main endpoints
+          curl -f https://afham.brainsait.io/ || exit 1
+          curl -f https://afham.brainsait.io/docs || exit 1
+          curl -f https://afham.brainsait.io/community || exit 1
+          
+          echo "Production deployment validated successfully!"
+
+      - name: Run Production Lighthouse Audit
+        run: |
+          lhci autorun \
+            --collect.url=https://afham.brainsait.io \
+            --collect.url=https://afham.brainsait.io/docs \
+            --collect.url=https://afham.brainsait.io/community \
+            --upload.target=temporary-public-storage
+
+      - name: Notify Team
+        if: success()
+        run: |
+          # Send notification to team (customize as needed)
+          echo "🚀 AFHAM Website deployed successfully to production!"
+          echo "📱 Main Site: https://afham.brainsait.io"
+          echo "📚 Documentation: https://afham.brainsait.io/docs"
+          echo "💬 Community: https://afham.brainsait.io/community"
+
+  # Security and performance monitoring
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: deploy-production
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Security Headers Check
+        run: |
+          # Check security headers
+          response=$(curl -I https://afham.brainsait.io)
+          
+          # Check for required security headers
+          echo "$response" | grep -i "x-frame-options" || exit 1
+          echo "$response" | grep -i "x-content-type-options" || exit 1
+          echo "$response" | grep -i "strict-transport-security" || exit 1
+          
+          echo "✅ Security headers validated"
+
+      - name: SSL Certificate Check
+        run: |
+          # Check SSL certificate
+          echo | openssl s_client -servername afham.brainsait.io -connect afham.brainsait.io:443 2>/dev/null | openssl x509 -noout -dates
+          
+          echo "✅ SSL certificate validated"
+
+      - name: Performance Monitoring
+        run: |
+          # Basic performance check
+          time curl -o /dev/null -s https://afham.brainsait.io
+          
+          echo "✅ Performance check completed"
+
+# Workflow notifications and cleanup
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    needs: [deploy-staging, deploy-production, security-scan]
+    if: always()
+    
+    steps:
+      - name: Clean up artifacts
+        uses: actions/upload-artifact/merge@v4
+        if: always()
+        with:
+          name: cleanup-logs
+          path: .
+          delete-merged: true

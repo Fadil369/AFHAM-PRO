@@ -213,7 +213,7 @@ struct ContentCreatorView: View {
     // MARK: - Content Type Section
     private var contentTypeSection: some View {
         VStack(alignment: isArabic ? .trailing : .leading, spacing: 12) {
-            Text(.localized(.contentType))
+            Text(verbatim: String.localized(.contentType))
                 .font(.headline)
                 .foregroundColor(.white)
             

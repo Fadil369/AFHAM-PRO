@@ -1,0 +1,281 @@
+# Hugo Static Site Generator Configuration for AFHAM Website
+# This allows for easier content management and automated builds
+
+baseURL: 'https://afham.brainsait.io'
+languageCode: 'en-us'
+title: 'AFHAM - AI-Powered Healthcare Document Understanding'
+defaultContentLanguage: 'en'
+
+# Multi-language configuration
+languages:
+  en:
+    contentDir: 'content/en'
+    languageName: 'English'
+    weight: 1
+    title: 'AFHAM - AI-Powered Healthcare Document Understanding'
+    description: 'Advanced AI-powered document understanding for healthcare with NPHIES compliance and Arabic support'
+    params:
+      locale: 'en_US'
+      direction: 'ltr'
+  ar:
+    contentDir: 'content/ar'
+    languageName: 'العربية'
+    weight: 2
+    title: 'أفهم - فهم المستندات الصحية بالذكاء الاصطناعي'
+    description: 'فهم متقدم للمستندات مدعوم بالذكاء الاصطناعي للرعاية الصحية مع توافق NPHIES ودعم العربية'
+    params:
+      locale: 'ar_SA'
+      direction: 'rtl'
+
+# Theme configuration
+theme: 'afham-theme'
+
+# Build configuration
+build:
+  publishDir: 'public'
+  writeStats: true
+
+# Markup configuration
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: 'github'
+    lineNos: true
+    codeFences: true
+    guessSyntax: true
+
+# Menu configuration
+menu:
+  main:
+    - name: 'Features'
+      identifier: 'features'
+      url: '#features'
+      weight: 10
+    - name: 'Healthcare'
+      identifier: 'healthcare'
+      url: '#healthcare'
+      weight: 20
+    - name: 'Documentation'
+      identifier: 'docs'
+      url: '/docs'
+      weight: 30
+    - name: 'Community'
+      identifier: 'community'
+      url: '/community'
+      weight: 40
+    - name: 'Contact'
+      identifier: 'contact'
+      url: '/contact'
+      weight: 50
+
+# Site parameters
+params:
+  # Brand information
+  brand:
+    name: 'AFHAM'
+    logo: '/assets/images/afham-logo.svg'
+    favicon: '/assets/images/favicon.svg'
+  
+  # Company information
+  company:
+    name: 'BrainSAIT Technologies'
+    logo: '/assets/images/brainsait-logo.svg'
+    tagline: 'Transforming healthcare through intelligent AI solutions'
+    website: 'https://brainsait.io'
+  
+  # Contact information
+  contact:
+    email:
+      support: 'support@brainsait.io'
+      business: 'business@brainsait.io'
+      privacy: 'privacy@brainsait.io'
+      general: 'info@brainsait.io'
+    phone:
+      emergency: '+966-XXX-XXXX'
+    address:
+      city: 'Riyadh'
+      country: 'Saudi Arabia'
+  
+  # Social media links
+  social:
+    twitter: 'https://twitter.com/brainsait'
+    linkedin: 'https://linkedin.com/company/brainsait'
+    github: 'https://github.com/brainsait'
+    discord: 'https://discord.gg/afham'
+  
+  # API endpoints
+  api:
+    base_url: 'https://api.afham.brainsait.io'
+    docs_url: 'https://api.afham.brainsait.io/docs'
+    status_url: 'https://status.afham.brainsait.io'
+  
+  # App download links
+  download:
+    ios: 'https://apps.apple.com/app/afham'
+    android: 'https://play.google.com/store/apps/details?id=io.brainsait.afham'
+  
+  # Feature flags
+  features:
+    analytics: true
+    search: true
+    newsletter: true
+    contact_forms: true
+    language_switch: true
+    dark_mode: false
+  
+  # Healthcare compliance
+  compliance:
+    nphies:
+      enabled: true
+      endpoint: 'https://nphies.sa'
+      version: 'R4'
+    pdpl:
+      enabled: true
+      privacy_policy_url: '/privacy'
+      terms_url: '/terms'
+    fhir:
+      version: 'R4'
+      profiles_url: 'https://nphies.sa/fhir'
+  
+  # Analytics configuration
+  analytics:
+    plausible:
+      domain: 'afham.brainsait.io'
+      script_url: 'https://plausible.io/js/script.js'
+    google_analytics: '' # Optional GA4 ID
+  
+  # SEO configuration
+  seo:
+    meta_description: 'AFHAM (أفهم) - Advanced AI-powered document understanding for healthcare with NPHIES compliance and Arabic support'
+    meta_keywords: 'AI, healthcare, documents, Arabic, NPHIES, FHIR, medical AI, BrainSAIT'
+    og_image: '/assets/images/og-image.jpg'
+    twitter_card: 'summary_large_image'
+  
+  # Performance configuration
+  performance:
+    minify_css: true
+    minify_js: true
+    optimize_images: true
+    lazy_loading: true
+    service_worker: true
+
+# Taxonomies
+taxonomies:
+  tag: 'tags'
+  category: 'categories'
+  topic: 'topics'
+
+# Output formats
+outputs:
+  home: ['HTML', 'RSS', 'JSON']
+  page: ['HTML']
+  section: ['HTML', 'RSS']
+
+# Media types for additional formats
+mediaTypes:
+  application/manifest+json:
+    suffixes: ['webmanifest']
+
+outputFormats:
+  MANIFEST:
+    mediaType: 'application/manifest+json'
+    baseName: 'manifest'
+    isPlainText: true
+
+# Security configuration
+security:
+  enableInlineShortcodes: false
+  exec:
+    allow: ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
+    osEnv: ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']
+  funcs:
+    getenv: ['^HUGO_']
+  http:
+    urls: ['.*']
+    methods: ['(?i)GET|POST']
+
+# Module configuration
+module:
+  hugoVersion:
+    extended: true
+    min: '0.120.0'
+  
+  # Import paths for theme
+  imports:
+    - path: 'github.com/brainsait/hugo-afham-theme'
+      disable: false
+
+# Sitemap configuration
+sitemap:
+  changefreq: 'monthly'
+  priority: 0.5
+  filename: 'sitemap.xml'
+
+# RSS configuration
+rss:
+  limit: 20
+
+# Related content configuration
+related:
+  threshold: 80
+  includeNewer: true
+  toLower: false
+  indices:
+    - name: 'keywords'
+      weight: 100
+    - name: 'tags'
+      weight: 80
+    - name: 'categories'
+      weight: 60
+
+# Caching configuration
+caches:
+  assets:
+    dir: ':resourceDir/_gen'
+    maxAge: '1h'
+  getcsv:
+    dir: ':cacheDir/:project'
+    maxAge: '1h'
+  getjson:
+    dir: ':cacheDir/:project'
+    maxAge: '1h'
+  images:
+    dir: ':resourceDir/_gen'
+    maxAge: '1h'
+  modules:
+    dir: ':cacheDir/modules'
+    maxAge: '1h'
+
+# Deployment configuration
+deployment:
+  targets:
+    - name: 'cloudflare'
+      URL: 's3://afham-website-bucket?region=auto&endpoint=<cloudflare-account-id>.r2.cloudflarestorage.com'
+      cloudFrontDistributionID: 'CLOUDFLARE_ZONE_ID'
+  
+  # File matchers for different caching strategies
+  matchers:
+    - pattern: '^assets/.*\.(js|css|svg|ttf|woff|woff2|eot|png|jpg|jpeg|gif|ico|webp)$'
+      cacheControl: 'max-age=31536000, no-transform, public'
+      gzip: true
+    - pattern: '^.+\.(js|css|svg|ttf|woff|woff2|eot|png|jpg|jpeg|gif|ico|webp)$'
+      cacheControl: 'max-age=31536000, no-transform, public'
+      gzip: true
+    - pattern: '^.+$'
+      cacheControl: 'max-age=3600, no-transform, public'
+      gzip: true
+
+# Development server configuration
+server:
+  headers:
+    - for: '/**'
+      values:
+        X-Frame-Options: 'DENY'
+        X-XSS-Protection: '1; mode=block'
+        X-Content-Type-Options: 'nosniff'
+        Referrer-Policy: 'strict-origin-when-cross-origin'
+    - for: '/assets/**'
+      values:
+        Cache-Control: 'public, max-age=31536000'

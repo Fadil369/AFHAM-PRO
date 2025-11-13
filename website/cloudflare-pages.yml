@@ -1,0 +1,101 @@
+# Cloudflare Pages Configuration for AFHAM Website
+
+# Build settings
+build:
+  command: "npm run build"
+  output: "dist"
+  environment:
+    NODE_VERSION: "18"
+    HUGO_VERSION: "0.101.0"
+
+# Environment variables
+environment:
+  AFHAM_API_URL: "https://api.afham.brainsait.io"
+  ANALYTICS_DOMAIN: "afham.brainsait.io"
+  DOCS_URL: "https://afham.brainsait.io/docs"
+  COMMUNITY_URL: "https://afham.brainsait.io/community"
+
+# Custom domains
+custom_domains:
+  - "afham.brainsait.io"
+  - "www.afham.brainsait.io"
+
+# Redirects and routing
+redirects:
+  # Redirect www to non-www
+  - from: "https://www.afham.brainsait.io/*"
+    to: "https://afham.brainsait.io/:splat"
+    status: 301
+    force: true
+  
+  # API redirects
+  - from: "/api/*"
+    to: "https://api.afham.brainsait.io/:splat"
+    status: 302
+  
+  # Legacy redirects
+  - from: "/documentation/*"
+    to: "/docs/:splat"
+    status: 301
+  
+  - from: "/help/*"
+    to: "/docs/:splat"
+    status: 301
+
+# Headers for security and performance
+headers:
+  "/*":
+    - "X-Frame-Options: DENY"
+    - "X-Content-Type-Options: nosniff"
+    - "X-XSS-Protection: 1; mode=block"
+    - "Referrer-Policy: strict-origin-when-cross-origin"
+    - "Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.afham.brainsait.io https://plausible.io; frame-ancestors 'none';"
+    - "Permissions-Policy: camera=(), microphone=(), geolocation=()"
+    - "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload"
+  
+  "/assets/*":
+    - "Cache-Control: public, max-age=31536000, immutable"
+  
+  "/docs/*":
+    - "Cache-Control: public, max-age=3600"
+  
+  "/community/*":
+    - "Cache-Control: public, max-age=1800"
+
+# Preview settings
+preview:
+  environment:
+    AFHAM_API_URL: "https://staging-api.afham.brainsait.io"
+    ANALYTICS_DOMAIN: "preview.afham.brainsait.io"
+
+# Functions (if using Cloudflare Workers)
+functions:
+  - name: "api-proxy"
+    path: "/api/*"
+    script: |
+      export default {
+        async fetch(request, env) {
+          const url = new URL(request.url);
+          const apiUrl = url.pathname.replace('/api', '');
+          
+          return fetch(`https://api.afham.brainsait.io${apiUrl}`, {
+            method: request.method,
+            headers: request.headers,
+            body: request.body
+          });
+        }
+      };
+
+# Error pages
+error_pages:
+  404: "/404.html"
+  500: "/500.html"
+
+# Language routing
+i18n:
+  default_locale: "en"
+  locales:
+    - "en"
+    - "ar"
+  paths:
+    ar: "/ar/*"

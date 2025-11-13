@@ -119,7 +119,7 @@ struct ChatView: View {
                             }
                             .padding()
                         }
-                        .onChange(of: viewModel.messages.count) { _ in
+                        .onChange(of: viewModel.messages.count) {
                             if let lastMessage = viewModel.messages.last {
                                 withAnimation {
                                     proxy.scrollTo(lastMessage.id, anchor: .bottom)
@@ -145,8 +145,8 @@ struct ChatView: View {
             Image(systemName: "bubble.left.and.bubble.right.fill")
                 .font(.system(size: 60))
                 .foregroundColor(AFHAMConfig.signalTeal.opacity(0.6))
-            
-            Text(.localized(.startConversation))
+
+            Text(String.localized(.startConversation))
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
@@ -210,6 +210,27 @@ struct MessageBubble: View {
     let message: ChatMessage
     let isArabic: Bool
     
+    private var messageBubbleBackground: some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(
+                message.isUser ? 
+                    AnyShapeStyle(
+                        LinearGradient(
+                            colors: [AFHAMConfig.signalTeal, AFHAMConfig.medicalBlue],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        ).opacity(0.8)
+                    ) :
+                    AnyShapeStyle(
+                        LinearGradient(
+                            colors: [Color.white.opacity(0.2), Color.white.opacity(0.15)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+            )
+    }
+    
     var body: some View {
         HStack(alignment: .top) {
             if message.isUser {
@@ -222,26 +243,8 @@ struct MessageBubble: View {
                     .font(.body)
                     .foregroundColor(message.isUser ? .white : .primary)
                     .padding(12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(
-                                message.isUser ? 
-                                    LinearGradient(
-                                        colors: [AFHAMConfig.signalTeal, AFHAMConfig.medicalBlue],
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    ).opacity(0.8) :
-                                    LinearGradient(
-                                        colors: [Color.white.opacity(0.2), Color.white.opacity(0.15)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                            )
-                    )
-                    .multilineTextAlignment(message.isUser ? 
-                        (isArabic ? .trailing : .leading) : 
-                        (isArabic ? .trailing : .leading)
-                    )
+                    .background(messageBubbleBackground)
+                    .multilineTextAlignment(isArabic ? .trailing : .leading)
                 
                 // Citations (if any)
                 if let citations = message.citations, !citations.isEmpty {
@@ -328,16 +331,17 @@ struct LoadingIndicator: View {
         HStack {
             HStack(spacing: 8) {
                 ForEach(0..<3) { index in
+                    let scaleValue = dots.count == index ? 1.2 : 0.8
+                    let animationDelay = Double(index) * 0.2
+                    let animation = Animation.easeInOut(duration: 0.6)
+                        .repeatForever()
+                        .delay(animationDelay)
+                    
                     Circle()
                         .fill(AFHAMConfig.signalTeal)
                         .frame(width: 8, height: 8)
-                        .scaleEffect(dots.count == index ? 1.2 : 0.8)
-                        .animation(
-                            Animation.easeInOut(duration: 0.6)
-                                .repeatForever()
-                                .delay(Double(index) * 0.2),
-                            value: dots
-                        )
+                        .scaleEffect(scaleValue)
+                        .animation(animation, value: dots)
                 }
                 
                 Text(isArabic ? "جاري التفكير" : "Thinking")
@@ -536,20 +540,23 @@ struct VoiceVisualization: View {
     var body: some View {
         ZStack {
             ForEach(0..<3) { index in
+                let circleSize = 150 + CGFloat(index * 30)
+                let scaleValue = isListening ? 1 + amplitude : 1
+                let opacityValue = isListening ? 0.5 : 0.2
+                let animationDelay = Double(index) * 0.2
+                let animation = Animation.easeInOut(duration: 1.0)
+                    .repeatForever()
+                    .delay(animationDelay)
+                
                 Circle()
                     .stroke(
                         AFHAMConfig.signalTeal.opacity(0.3),
                         lineWidth: 2
                     )
-                    .frame(width: 150 + CGFloat(index * 30), height: 150 + CGFloat(index * 30))
-                    .scaleEffect(isListening ? 1 + amplitude : 1)
-                    .opacity(isListening ? 0.5 : 0.2)
-                    .animation(
-                        Animation.easeInOut(duration: 1.0)
-                            .repeatForever()
-                            .delay(Double(index) * 0.2),
-                        value: isListening
-                    )
+                    .frame(width: circleSize, height: circleSize)
+                    .scaleEffect(scaleValue)
+                    .opacity(opacityValue)
+                    .animation(animation, value: isListening)
             }
             
             Circle()
