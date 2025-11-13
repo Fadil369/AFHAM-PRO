@@ -21,9 +21,33 @@ struct AFHAMMainApp: App {
     private func setupApp() {
         // NEURAL: Configure UI appearance
         configureAppearance()
-        
+
+        // SECURITY: Initialize secure API key management
+        initializeSecureAPIKey()
+
         // BRAINSAIT: Initialize analytics and logging
-        AppLogger.shared.log("AFHAM App Launched")
+        AppLogger.shared.log("AFHAM App Launched", level: .success)
+    }
+
+    private func initializeSecureAPIKey() {
+        #if DEBUG
+        // In debug mode, try to load from environment variable
+        try? SecureAPIKeyManager.shared.setKeyFromEnvironment()
+        SecureAPIKeyManager.shared.printKeyStatus()
+        #endif
+
+        // Check if API key is configured
+        if !AFHAMConfig.isConfigured {
+            AppLogger.shared.log(
+                "⚠️ API Key not configured. Please configure it in Settings.",
+                level: .warning
+            )
+        } else {
+            AppLogger.shared.log(
+                "✅ API Key configured securely",
+                level: .success
+            )
+        }
     }
     
     private func configureAppearance() {
@@ -144,6 +168,7 @@ class AppLogger {
 // MARK: - MEDICAL: Custom Error Types
 enum AFHAMError: LocalizedError {
     case apiKeyMissing
+    case invalidAPIKey
     case fileUploadFailed(String)
     case documentProcessingFailed(String)
     case queryFailed(String)
@@ -151,11 +176,19 @@ enum AFHAMError: LocalizedError {
     case unsupportedFileType(String)
     case fileSizeTooLarge(Int64)
     case networkError(String)
-    
+    case keychainError(String)
+    case rateLimitExceeded
+    case requestCancelled
+    case invalidResponse
+    case securityError(String)
+    case cachingError(String)
+
     var errorDescription: String? {
         switch self {
         case .apiKeyMissing:
-            return "Gemini API key is missing. Please configure it in AFHAMConfig."
+            return "Gemini API key is missing. Please configure it in Settings."
+        case .invalidAPIKey:
+            return "Invalid API key format"
         case .fileUploadFailed(let reason):
             return "File upload failed: \(reason)"
         case .documentProcessingFailed(let reason):
@@ -171,13 +204,27 @@ enum AFHAMError: LocalizedError {
             return "File size (\(String(format: "%.1f", mb)) MB) exceeds maximum allowed size"
         case .networkError(let reason):
             return "Network error: \(reason)"
+        case .keychainError(let reason):
+            return "Keychain error: \(reason)"
+        case .rateLimitExceeded:
+            return "Rate limit exceeded. Please try again later."
+        case .requestCancelled:
+            return "Request was cancelled"
+        case .invalidResponse:
+            return "Invalid response from server"
+        case .securityError(let reason):
+            return "Security error: \(reason)"
+        case .cachingError(let reason):
+            return "Caching error: \(reason)"
         }
     }
-    
+
     var localizedArabic: String {
         switch self {
         case .apiKeyMissing:
-            return "مفتاح API مفقود. الرجاء تكوينه في AFHAMConfig."
+            return "مفتاح API مفقود. الرجاء تكوينه في الإعدادات."
+        case .invalidAPIKey:
+            return "تنسيق مفتاح API غير صالح"
         case .fileUploadFailed:
             return "فشل رفع الملف"
         case .documentProcessingFailed:
@@ -192,6 +239,18 @@ enum AFHAMError: LocalizedError {
             return "حجم الملف يتجاوز الحد الأقصى المسموح"
         case .networkError:
             return "خطأ في الشبكة"
+        case .keychainError:
+            return "خطأ في سلسلة المفاتيح"
+        case .rateLimitExceeded:
+            return "تم تجاوز حد المعدل. يرجى المحاولة مرة أخرى لاحقاً."
+        case .requestCancelled:
+            return "تم إلغاء الطلب"
+        case .invalidResponse:
+            return "استجابة غير صالحة من الخادم"
+        case .securityError:
+            return "خطأ أمني"
+        case .cachingError:
+            return "خطأ في التخزين المؤقت"
         }
     }
 }

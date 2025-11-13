@@ -48,14 +48,16 @@ struct AFHAMConfig {
     
     static let supportedFileTypes = AFHAMConstants.Files.supportedUTTypes
 
-    // API Configuration - Store securely in production
-    // NOTE: API key is set for testing. In production, use environment variables or Keychain
-    static let geminiAPIKey = ProcessInfo.processInfo.environment["GEMINI_API_KEY"] ?? "AIzaSyCoyOP2O1zbuTmsQSwwYxhP8oa3Tzxg410"
+    // API Configuration - Secure key management
+    // SECURITY: API key stored securely in Keychain
+    static var geminiAPIKey: String {
+        return SecureAPIKeyManager.shared.getGeminiAPIKey() ?? ""
+    }
     static let geminiModel = AFHAMConstants.API.geminiModel
-    
+
     // Check if API key is configured
     static var isConfigured: Bool {
-        return !geminiAPIKey.isEmpty && geminiAPIKey != "YOUR_GEMINI_API_KEY"
+        return SecureAPIKeyManager.shared.isGeminiKeyConfigured
     }
 }
 
@@ -105,7 +107,56 @@ class GeminiFileSearchManager: ObservableObject {
     
     private let baseURL = "https://generativelanguage.googleapis.com/v1beta"
     private var fileSearchStoreID: String?
-    
+
+    // MARK: - Retry Logic with Exponential Backoff
+
+    /// Performs a network request with automatic retry and exponential backoff
+    /// - Parameters:
+    ///   - maxRetries: Maximum number of retry attempts (default: 3)
+    ///   - operation: The async operation to perform
+    /// - Returns: The result of the operation
+    private func performRequestWithRetry<T>(
+        maxRetries: Int = 3,
+        operation: @escaping () async throws -> T
+    ) async throws -> T {
+        var lastError: Error?
+        var attempt = 0
+
+        while attempt < maxRetries {
+            do {
+                let result = try await operation()
+                if attempt > 0 {
+                    AppLogger.shared.log("Request succeeded after \(attempt) retries", level: .success)
+                }
+                return result
+            } catch {
+                lastError = error
+                attempt += 1
+
+                // Don't retry on client errors (4xx)
+                if let urlError = error as? URLError {
+                    let statusCode = urlError.errorCode
+                    if statusCode >= 400 && statusCode < 500 {
+                        AppLogger.shared.log("Client error (\(statusCode)), not retrying", level: .error)
+                        throw error
+                    }
+                }
+
+                // Don't retry on the last attempt
+                if attempt < maxRetries {
+                    // Exponential backoff: 2^attempt seconds, capped at 10 seconds
+                    let delay = min(pow(2.0, Double(attempt)), 10.0)
+                    AppLogger.shared.log("Request failed, retrying in \(delay)s (attempt \(attempt)/\(maxRetries))", level: .warning)
+                    try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+                } else {
+                    AppLogger.shared.log("Max retries exceeded", level: .error)
+                }
+            }
+        }
+
+        throw lastError ?? AFHAMError.networkError("Max retries exceeded")
+    }
+
     // BRAINSAIT: Create file search store with audit logging
     func createFileSearchStore(displayName: String) async throws -> String {
         let endpoint = "\(baseURL)/fileSearchStores?key=\(AFHAMConfig.geminiAPIKey)"
@@ -258,27 +309,32 @@ class GeminiFileSearchManager: ObservableObject {
         return "en"
     }
     
-    // AGENT: Query with File Search
+    // AGENT: Query with File Search (with retry logic)
     func queryDocuments(question: String, language: String) async throws -> (answer: String, citations: [Citation]) {
         // Check if API key is configured
         guard AFHAMConfig.isConfigured else {
-            throw NSError(domain: "GeminiAPI", code: -1, userInfo: [
-                NSLocalizedDescriptionKey: "Gemini API key not configured. Please set GEMINI_API_KEY environment variable."
-            ])
-        }
-        
-        guard let storeID = fileSearchStoreID else {
-            throw NSError(domain: "NoStore", code: -1, userInfo: [
-                NSLocalizedDescriptionKey: "No file search store available. Please upload documents first."
-            ])
+            throw AFHAMError.apiKeyMissing
         }
 
+        guard let storeID = fileSearchStoreID else {
+            throw AFHAMError.queryFailed("No file search store available. Please upload documents first.")
+        }
+
+        // Use retry logic for the query
+        return try await performRequestWithRetry {
+            try await self.executeQuery(question: question, storeID: storeID)
+        }
+    }
+
+    // Internal method to execute the actual query
+    private func executeQuery(question: String, storeID: String) async throws -> (answer: String, citations: [Citation]) {
         let endpoint = "\(baseURL)/models/\(AFHAMConfig.geminiModel):generateContent?key=\(AFHAMConfig.geminiAPIKey)"
 
         var request = URLRequest(url: URL(string: endpoint)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.timeoutInterval = AFHAMConstants.API.timeout
+
         let body: [String: Any] = [
             "contents": [
                 [
@@ -295,20 +351,34 @@ class GeminiFileSearchManager: ObservableObject {
                 ]
             ]
         ]
-        
+
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
-        
-        let (data, _) = try await URLSession.shared.data(for: request)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        // Validate HTTP response
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AFHAMError.networkError("Invalid response from server")
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw AFHAMError.networkError("Server returned error: \(httpResponse.statusCode)")
+        }
+
         let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
-        
-        // Extract answer and citations
-        let candidates = json["candidates"] as! [[String: Any]]
-        let content = candidates[0]["content"] as! [String: Any]
-        let parts = content["parts"] as! [[String: Any]]
-        let answer = parts[0]["text"] as! String
-        
+
+        // Extract answer and citations with better error handling
+        guard let candidates = json["candidates"] as? [[String: Any]],
+              let firstCandidate = candidates.first,
+              let content = firstCandidate["content"] as? [String: Any],
+              let parts = content["parts"] as? [[String: Any]],
+              let firstPart = parts.first,
+              let answer = firstPart["text"] as? String else {
+            throw AFHAMError.queryFailed("Failed to parse response from Gemini API")
+        }
+
         var citations: [Citation] = []
-        if let groundingMetadata = candidates[0]["groundingMetadata"] as? [String: Any],
+        if let groundingMetadata = firstCandidate["groundingMetadata"] as? [String: Any],
            let groundingSupports = groundingMetadata["groundingSupports"] as? [[String: Any]] {
             for support in groundingSupports {
                 if let segment = support["segment"] as? [String: Any],
@@ -321,7 +391,7 @@ class GeminiFileSearchManager: ObservableObject {
                 }
             }
         }
-        
+
         return (answer, citations)
     }
 }
