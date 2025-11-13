@@ -1,0 +1,169 @@
+# AFHAM iOS .gitignore
+# BrainSAIT Healthcare AI Platform
+
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User settings
+xcuserdata/
+
+## Xcode 8 and later
+*.xcscmblueprint
+*.xccheckout
+
+## Xcode Patch
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+## Obj-C/Swift specific
+*.hmap
+
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Accio dependency management
+Dependencies/
+.accio/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+fastlane/README.md
+
+# Code Injection
+iOSInjectionProject/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# API Keys and Secrets (CRITICAL - Never commit!)
+Config.xcconfig
+*.pem
+*.p12
+*.mobileprovision
+GoogleService-Info.plist
+.env
+.env.*
+secrets.json
+api_keys.json
+
+# PDPL Compliance - User Data
+UserData/
+Cache/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Analytics & Logs
+*.log
+logs/
+analytics/
+crash_reports/
+
+# Test outputs
+test_output/
+coverage/
+*.profdata
+*.profraw
+
+# Documentation build
+docs/
+site/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+tmp/
+temp/
+
+# Security scans
+security_report.*
+vulnerability_scan.*
+
+# Backup files
+*.backup
+*.bak
+*~.nib
+
+# Ruby (for Fastlane)
+vendor/bundle
+.bundle
+Gemfile.lock
+
+# Node (if using any JS tooling)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python (if using any Python tools)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# AFHAM Specific
+*.afham-cache
+*.afham-temp
+afham_config.local.json

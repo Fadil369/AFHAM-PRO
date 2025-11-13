@@ -1,0 +1,146 @@
+/* 
+   Localizable.strings (English)
+   AFHAM - أفهم
+   
+   Created by BrainSAIT Development Team
+   Copyright © 2024 BrainSAIT. All rights reserved.
+*/
+
+/* App Navigation */
+"app_title" = "AFHAM";
+"documents" = "Documents";
+"chat" = "Chat";
+"content" = "Content";
+"settings" = "Settings";
+
+/* Document Management */
+"no_documents" = "No Documents";
+"no_documents_description" = "Start by adding a document to analyze";
+"upload_document" = "Upload Document";
+"add_document" = "Add";
+"select_document" = "Select Document";
+"change_document" = "Change";
+"select_document_prompt" = "Select a Document";
+"document_uploaded" = "Document Uploaded";
+"document_processing" = "Processing";
+"document_ready" = "Ready";
+"document_error" = "Error";
+"uploading_status" = "Uploading...";
+"processing_status" = "Processing...";
+"ready_status" = "Ready";
+"error_status" = "Error";
+
+/* Chat Interface */
+"start_conversation" = "Start Conversation";
+"start_conversation_description" = "Ask questions about your documents using text or voice";
+"thinking" = "Thinking";
+"typing" = "Typing...";
+"sources" = "Sources";
+"ask_question" = "Ask a question...";
+"voice_input" = "Voice Input";
+"stop_listening" = "Stop Listening";
+"start_listening" = "Start Listening";
+
+/* Content Creation */
+"content_type" = "Content Type";
+"generate_content" = "Generate Content";
+"generated_content" = "Generated Content";
+"additional_instructions" = "Additional Instructions (Optional)";
+"additional_instructions_placeholder" = "Provide specific requirements or style preferences...";
+"select_content_type" = "Select Content Type";
+"content_generated" = "Content Generated";
+"copy_content" = "Copy";
+"share_content" = "Share";
+
+/* Settings */
+"language" = "Language";
+"about" = "About";
+"version" = "Version";
+"company" = "Company";
+"voice_settings" = "Voice Settings";
+"auto_speak" = "Auto Speak";
+"voice_speed" = "Voice Speed";
+"privacy_settings" = "Privacy Settings";
+"data_collection" = "Data Collection";
+"analytics" = "Analytics";
+
+/* Common Actions */
+"loading" = "Loading...";
+"error" = "Error";
+"success" = "Success";
+"cancel" = "Cancel";
+"done" = "Done";
+"ok" = "OK";
+"retry" = "Retry";
+"save" = "Save";
+"delete" = "Delete";
+"edit" = "Edit";
+"share" = "Share";
+"copy" = "Copy";
+"paste" = "Paste";
+"search" = "Search";
+"filter" = "Filter";
+"sort" = "Sort";
+"refresh" = "Refresh";
+"close" = "Close";
+"back" = "Back";
+"next" = "Next";
+"previous" = "Previous";
+"more" = "More";
+"less" = "Less";
+"show" = "Show";
+"hide" = "Hide";
+
+/* Content Types */
+"blog_post" = "Blog Post";
+"social_media_post" = "Social Media Post";
+"email_template" = "Email Template";
+"presentation" = "Presentation";
+"report" = "Report";
+"summary" = "Summary";
+"translation" = "Translation";
+"newsletter" = "Newsletter";
+"press_release" = "Press Release";
+"product_description" = "Product Description";
+
+/* Error Messages */
+"api_key_missing" = "API key is missing. Please configure it in settings.";
+"file_upload_failed" = "File upload failed";
+"document_processing_failed" = "Document processing failed";
+"query_failed" = "Query failed";
+"voice_recognition_failed" = "Voice recognition failed";
+"unsupported_file_type" = "Unsupported file type";
+"file_size_too_large" = "File size exceeds maximum allowed";
+"network_error" = "Network error";
+"permission_denied" = "Permission denied";
+"microphone_access_denied" = "Microphone access denied";
+"speech_recognition_unavailable" = "Speech recognition unavailable";
+
+/* Voice Assistant */
+"voice_assistant" = "Voice Assistant";
+"listening" = "Listening...";
+"speak_your_question" = "Speak your question";
+"tap_to_speak" = "Tap to speak";
+"tap_to_stop" = "Tap to stop";
+"voice_recognized" = "Voice recognized";
+"voice_processing" = "Processing voice...";
+"voice_error" = "Voice recognition error";
+
+/* File Management */
+"file_size" = "File Size";
+"file_name" = "File Name";
+"file_type" = "File Type";
+"upload_date" = "Upload Date";
+"last_modified" = "Last Modified";
+"document_details" = "Document Details";
+"supported_formats" = "Supported Formats";
+"max_file_size" = "Maximum File Size";
+
+/* Accessibility */
+"document_card" = "Document";
+"message_from_user" = "Message from user";
+"message_from_assistant" = "Message from assistant";
+"voice_button" = "Voice input button";
+"upload_button" = "Upload document button";
+"language_selector" = "Language selector";
+"content_type_selector" = "Content type selector";

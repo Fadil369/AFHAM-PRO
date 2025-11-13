@@ -1,0 +1,79 @@
+# Jazzy Configuration for AFHAM Documentation
+# BrainSAIT Healthcare AI Platform
+
+# Project info
+module: AFHAM
+author: BrainSAIT Ltd
+author_url: https://brainsait.com
+github_url: https://github.com/brainsait/afham-pro-core
+copyright: '© 2025 BrainSAIT Ltd. All rights reserved.'
+
+# Build settings
+clean: true
+xcodebuild_arguments:
+  - -project
+  - AFHAM.xcodeproj
+  - -scheme
+  - AFHAM
+
+# Documentation settings
+output: docs/API
+theme: fullwidth
+documentation: "*.md"
+
+# Source files
+source_directory: AFHAM/
+
+# Exclude paths
+exclude:
+  - "*/Tests/*"
+  - "*/Resources/*"
+
+# Custom categories
+custom_categories:
+  - name: Core Components
+    children:
+      - AFHAMApp
+      - AFHAMManager
+      - AFHAMConstants
+      - LocalizationManager
+
+  - name: Chat & Content
+    children:
+      - ChatView
+      - ContentGenerationView
+      - MessageView
+
+  - name: Advanced Features
+    children:
+      - OfflineModeManager
+      - CollaborationManager
+      - AnalyticsDashboard
+
+  - name: Healthcare Compliance
+    children:
+      - NPHIESManager
+      - FHIRResourceHandler
+      - HealthcareAuthManager
+
+  - name: Security & Privacy
+    children:
+      - EncryptionManager
+      - PDPLComplianceManager
+      - ConsentManager
+
+# Minimum ACL
+min_acl: public
+
+# Swift version
+swift_version: 5.9
+
+# Styling
+head: |
+  <style>
+    .header-container {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    h1, h2, h3 { color: #667eea; }
+    a { color: #764ba2; }
+  </style>

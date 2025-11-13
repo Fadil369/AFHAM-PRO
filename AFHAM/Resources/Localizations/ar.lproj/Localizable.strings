@@ -1,0 +1,146 @@
+/* 
+   Localizable.strings (Arabic)
+   AFHAM - أفهم
+   
+   Created by BrainSAIT Development Team
+   Copyright © 2024 BrainSAIT. All rights reserved.
+*/
+
+/* App Navigation */
+"app_title" = "أفهم";
+"documents" = "المستندات";
+"chat" = "المحادثة";
+"content" = "المحتوى";
+"settings" = "الإعدادات";
+
+/* Document Management */
+"no_documents" = "لا توجد مستندات";
+"no_documents_description" = "ابدأ بإضافة مستند للتحليل";
+"upload_document" = "رفع مستند";
+"add_document" = "إضافة";
+"select_document" = "اختر مستند";
+"change_document" = "تغيير";
+"select_document_prompt" = "اختر مستنداً";
+"document_uploaded" = "تم رفع المستند";
+"document_processing" = "معالجة";
+"document_ready" = "جاهز";
+"document_error" = "خطأ";
+"uploading_status" = "جاري الرفع...";
+"processing_status" = "جاري المعالجة...";
+"ready_status" = "جاهز";
+"error_status" = "خطأ";
+
+/* Chat Interface */
+"start_conversation" = "ابدأ المحادثة";
+"start_conversation_description" = "اطرح أسئلة حول مستنداتك باستخدام النص أو الصوت";
+"thinking" = "جاري التفكير";
+"typing" = "جاري الكتابة...";
+"sources" = "المصادر";
+"ask_question" = "اطرح سؤالاً...";
+"voice_input" = "الإدخال الصوتي";
+"stop_listening" = "توقف عن الاستماع";
+"start_listening" = "ابدأ الاستماع";
+
+/* Content Creation */
+"content_type" = "نوع المحتوى";
+"generate_content" = "إنشاء المحتوى";
+"generated_content" = "المحتوى المُنشأ";
+"additional_instructions" = "تعليمات إضافية (اختياري)";
+"additional_instructions_placeholder" = "قدم متطلبات محددة أو تفضيلات الأسلوب...";
+"select_content_type" = "اختر نوع المحتوى";
+"content_generated" = "تم إنشاء المحتوى";
+"copy_content" = "نسخ";
+"share_content" = "مشاركة";
+
+/* Settings */
+"language" = "اللغة";
+"about" = "معلومات";
+"version" = "الإصدار";
+"company" = "الشركة";
+"voice_settings" = "إعدادات الصوت";
+"auto_speak" = "التحدث التلقائي";
+"voice_speed" = "سرعة الصوت";
+"privacy_settings" = "إعدادات الخصوصية";
+"data_collection" = "جمع البيانات";
+"analytics" = "التحليلات";
+
+/* Common Actions */
+"loading" = "جاري التحميل...";
+"error" = "خطأ";
+"success" = "نجح";
+"cancel" = "إلغاء";
+"done" = "تم";
+"ok" = "حسناً";
+"retry" = "إعادة المحاولة";
+"save" = "حفظ";
+"delete" = "حذف";
+"edit" = "تعديل";
+"share" = "مشاركة";
+"copy" = "نسخ";
+"paste" = "لصق";
+"search" = "بحث";
+"filter" = "تصفية";
+"sort" = "ترتيب";
+"refresh" = "تحديث";
+"close" = "إغلاق";
+"back" = "رجوع";
+"next" = "التالي";
+"previous" = "السابق";
+"more" = "المزيد";
+"less" = "أقل";
+"show" = "إظهار";
+"hide" = "إخفاء";
+
+/* Content Types */
+"blog_post" = "مقال مدونة";
+"social_media_post" = "منشور وسائل التواصل";
+"email_template" = "قالب بريد إلكتروني";
+"presentation" = "عرض تقديمي";
+"report" = "تقرير";
+"summary" = "ملخص";
+"translation" = "ترجمة";
+"newsletter" = "نشرة إخبارية";
+"press_release" = "بيان صحفي";
+"product_description" = "وصف المنتج";
+
+/* Error Messages */
+"api_key_missing" = "مفتاح API مفقود. يرجى تكوينه في الإعدادات.";
+"file_upload_failed" = "فشل رفع الملف";
+"document_processing_failed" = "فشلت معالجة المستند";
+"query_failed" = "فشل الاستعلام";
+"voice_recognition_failed" = "فشل التعرف على الصوت";
+"unsupported_file_type" = "نوع ملف غير مدعوم";
+"file_size_too_large" = "حجم الملف يتجاوز الحد الأقصى المسموح";
+"network_error" = "خطأ في الشبكة";
+"permission_denied" = "تم رفض الإذن";
+"microphone_access_denied" = "تم رفض الوصول للميكروفون";
+"speech_recognition_unavailable" = "التعرف على الكلام غير متاح";
+
+/* Voice Assistant */
+"voice_assistant" = "المساعد الصوتي";
+"listening" = "جاري الاستماع...";
+"speak_your_question" = "تحدث بسؤالك";
+"tap_to_speak" = "اضغط للتحدث";
+"tap_to_stop" = "اضغط للتوقف";
+"voice_recognized" = "تم التعرف على الصوت";
+"voice_processing" = "معالجة الصوت...";
+"voice_error" = "خطأ في التعرف على الصوت";
+
+/* File Management */
+"file_size" = "حجم الملف";
+"file_name" = "اسم الملف";
+"file_type" = "نوع الملف";
+"upload_date" = "تاريخ الرفع";
+"last_modified" = "آخر تعديل";
+"document_details" = "تفاصيل المستند";
+"supported_formats" = "الصيغ المدعومة";
+"max_file_size" = "الحد الأقصى لحجم الملف";
+
+/* Accessibility */
+"document_card" = "مستند";
+"message_from_user" = "رسالة من المستخدم";
+"message_from_assistant" = "رسالة من المساعد";
+"voice_button" = "زر الإدخال الصوتي";
+"upload_button" = "زر رفع المستند";
+"language_selector" = "محدد اللغة";
+"content_type_selector" = "محدد نوع المحتوى";
