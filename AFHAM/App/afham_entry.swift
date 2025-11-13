@@ -37,7 +37,7 @@ struct AFHAMMainApp: App {
         #endif
 
         // Check if API key is configured
-        if !AFHAMConfig.isConfigured {
+        if !AFHAMConstants.isConfigured {
             AppLogger.shared.log(
                 "⚠️ API Key not configured. Please configure it in Settings.",
                 level: .warning
@@ -54,7 +54,7 @@ struct AFHAMMainApp: App {
         // Tab bar appearance
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = UIColor(AFHAMConfig.midnightBlue)
+        tabBarAppearance.backgroundColor = UIColor(AFHAMColors.midnightBlue)
         
         UITabBar.appearance().standardAppearance = tabBarAppearance
         if #available(iOS 15.0, *) {
@@ -125,7 +125,23 @@ class AppState: ObservableObject {
     }
 }
 
+// MARK: - AFHAM Configuration Extension
+// Extends AFHAMConstants with secure API key management
+extension AFHAMConstants {
+    // API Configuration - Secure key management
+    // SECURITY: API key stored securely in Keychain
+    static var geminiAPIKey: String {
+        return SecureAPIKeyManager.shared.getGeminiAPIKey() ?? ""
+    }
+
+    // Check if API key is configured
+    static var isConfigured: Bool {
+        return SecureAPIKeyManager.shared.isGeminiKeyConfigured
+    }
+}
+
 // MARK: - BRAINSAIT: Logging System
+// Note: SecureAPIKeyManager is now in AFHAM/Core/SecureAPIKeyManager.swift
 class AppLogger {
     static let shared = AppLogger()
     
@@ -333,7 +349,7 @@ struct FileValidator {
         
         // Check file type
         let fileExtension = url.pathExtension.lowercased()
-        let supportedExtensions = ["pdf", "txt", "doc", "docx", "rtf", "html", "json", "xml", "xlsx", "pptx"]
+        let supportedExtensions = AFHAMConstants.Files.supportedExtensions
         
         guard supportedExtensions.contains(fileExtension) else {
             throw AFHAMError.unsupportedFileType(fileExtension)
@@ -344,20 +360,7 @@ struct FileValidator {
     
     static func getMimeType(for url: URL) -> String {
         let fileExtension = url.pathExtension.lowercased()
-        
-        switch fileExtension {
-        case "pdf": return "application/pdf"
-        case "txt": return "text/plain"
-        case "doc": return "application/msword"
-        case "docx": return "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        case "rtf": return "text/rtf"
-        case "html": return "text/html"
-        case "json": return "application/json"
-        case "xml": return "application/xml"
-        case "xlsx": return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        case "pptx": return "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-        default: return "application/octet-stream"
-        }
+        return AFHAMConstants.Files.mimeTypes[fileExtension] ?? "application/octet-stream"
     }
 }
 
@@ -401,11 +404,11 @@ enum AnalyticsEvent {
 
 // MARK: - Feature Flags
 struct FeatureFlags {
-    static let voiceAssistantEnabled = true
-    static let contentCreatorEnabled = true
-    static let offlineModeEnabled = false // Future feature
-    static let advancedSearchEnabled = false // Future feature
-    static let collaborationEnabled = false // Future feature
+    static let voiceAssistantEnabled = AFHAMConstants.Features.voiceAssistantEnabled
+    static let contentCreatorEnabled = AFHAMConstants.Features.contentCreatorEnabled
+    static let offlineModeEnabled = AFHAMConstants.Features.offlineModeEnabled
+    static let advancedSearchEnabled = AFHAMConstants.Features.advancedSearchEnabled
+    static let collaborationEnabled = AFHAMConstants.Features.collaborationEnabled
     
     static func isEnabled(_ feature: String) -> Bool {
         switch feature {
@@ -421,16 +424,16 @@ struct FeatureFlags {
 
 // MARK: - API Client Configuration
 struct APIClient {
-    static let geminiBaseURL = "https://generativelanguage.googleapis.com/v1beta"
-    static let timeout: TimeInterval = 30.0
-    static let maxRetries = 3
+    static let geminiBaseURL = AFHAMConstants.API.geminiBaseURL
+    static let timeout: TimeInterval = AFHAMConstants.API.timeout
+    static let maxRetries = AFHAMConstants.API.maxRetries
     
     static func createURLSession() -> URLSession {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = timeout
         config.timeoutIntervalForResource = timeout * 2
-        config.waitsForConnectivity = true
-        config.requestCachePolicy = .reloadIgnoringLocalCacheData
+        config.waitsForConnectivity = AFHAMConstants.Network.waitsForConnectivity
+        config.requestCachePolicy = AFHAMConstants.Network.cachePolicy
         
         return URLSession(configuration: config)
     }
