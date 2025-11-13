@@ -32,6 +32,7 @@ import UniformTypeIdentifiers
 import AVFoundation
 import AVFAudio
 import Speech
+import AudioToolbox
 import Vision
 import NaturalLanguage
 import Translation
@@ -513,3 +514,93 @@ class VoiceAssistantManager: NSObject, ObservableObject, SFSpeechRecognizerDeleg
 }
 
 
+
+// MARK: - Enhanced Voice Features (Appended)
+// Note: Keep old VoiceAssistantManager above for backward compatibility
+
+// MARK: - Voice Activity Detection
+class VoiceActivityDetector: ObservableObject {
+    @Published var isSpeaking = false
+    @Published var audioLevel: Float = 0.0
+
+    private let threshold: Float = -50.0 // dB threshold
+    private let silenceThreshold: Float = -55.0
+    private var silenceDuration: TimeInterval = 0
+    private let maxSilenceDuration: TimeInterval = 2.0
+
+    func processAudioBuffer(_ buffer: AVAudioPCMBuffer) {
+        guard let channelData = buffer.floatChannelData else { return }
+
+        let channelDataValue = channelData.pointee
+        let frameLength = Int(buffer.frameLength)
+
+        var sum: Float = 0
+        for i in 0..<frameLength {
+            let sample = channelDataValue[i]
+            sum += sample * sample
+        }
+
+        let rms = sqrt(sum / Float(frameLength))
+        let db = 20 * log10(rms)
+
+        DispatchQueue.main.async {
+            self.audioLevel = max(0, min(1, (db + 60) / 60))
+
+            if db > self.threshold {
+                self.isSpeaking = true
+                self.silenceDuration = 0
+            } else if db < self.silenceThreshold {
+                self.silenceDuration += 0.02
+                if self.silenceDuration > self.maxSilenceDuration {
+                    self.isSpeaking = false
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Voice Command Enum
+enum VoiceCommand: String, CaseIterable {
+    case openDocument = "افتح المستند", closeDocument = "أغلق المستند"
+    case search = "ابحث", readText = "اقرأ", stopReading = "توقف"
+    case nextPage = "الصفحة التالية", previousPage = "الصفحة السابقة"
+    case summary = "ملخص", translate = "ترجم"
+    case openDocumentEN = "open document", closeDocumentEN = "close document"
+    case searchEN = "search", readTextEN = "read", stopReadingEN = "stop"
+    case nextPageEN = "next page", previousPageEN = "previous page"
+    case summaryEN = "summary", translateEN = "translate"
+
+    var action: String {
+        switch self {
+        case .openDocument, .openDocumentEN: return "open"
+        case .closeDocument, .closeDocumentEN: return "close"
+        case .search, .searchEN: return "search"
+        case .readText, .readTextEN: return "read"
+        case .stopReading, .stopReadingEN: return "stop"
+        case .nextPage, .nextPageEN: return "next"
+        case .previousPage, .previousPageEN: return "previous"
+        case .summary, .summaryEN: return "summary"
+        case .translate, .translateEN: return "translate"
+        }
+    }
+}
+
+enum VoiceError: LocalizedError {
+    case speechNotAuthorized, microphoneNotAuthorized, requestCreationFailed, invalidAudioFormat
+
+    var errorDescription: String? {
+        switch self {
+        case .speechNotAuthorized: return "Speech recognition not authorized"
+        case .microphoneNotAuthorized: return "Microphone access not granted"
+        case .requestCreationFailed: return "Could not create recognition request"
+        case .invalidAudioFormat: return "Invalid audio format"
+        }
+    }
+}
+
+enum AudioFeedbackType {
+    case begin, end, success, error
+}
+
+// Type alias for seamless migration
+typealias EnhancedVoiceAssistantManager = VoiceAssistantManager
