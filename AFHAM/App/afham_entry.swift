@@ -140,8 +140,104 @@ extension AFHAMConstants {
     }
 }
 
+// MARK: - SECURITY: Secure API Key Management
+// Note: This class should be moved to AFHAM/Core/SecureAPIKeyManager.swift and added to Xcode project
+// For now, keeping it here for build compatibility
+class SecureAPIKeyManager {
+    static let shared = SecureAPIKeyManager()
+    private init() {}
+    
+    private let keychainService = "com.brainsait.afham.keychain"
+    private let geminiAPIKeyAccount = "gemini_api_key"
+    
+    private func save(key: String, value: String) throws {
+        let data = value.data(using: .utf8)!
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: keychainService,
+            kSecAttrAccount as String: key,
+            kSecValueData as String: data
+        ]
+        SecItemDelete(query as CFDictionary)
+        let status = SecItemAdd(query as CFDictionary, nil)
+        guard status == errSecSuccess else {
+            throw AFHAMError.keychainError("Failed to save to keychain: \(status)")
+        }
+    }
+    
+    private func load(key: String) -> String? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: keychainService,
+            kSecAttrAccount as String: key,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        guard status == errSecSuccess,
+              let data = result as? Data,
+              let string = String(data: data, encoding: .utf8) else {
+            return nil
+        }
+        return string
+    }
+    
+    private func delete(key: String) throws {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: keychainService,
+            kSecAttrAccount as String: key
+        ]
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            throw AFHAMError.keychainError("Failed to delete from keychain: \(status)")
+        }
+    }
+    
+    func setGeminiAPIKey(_ apiKey: String) throws {
+        guard !apiKey.isEmpty else { throw AFHAMError.invalidAPIKey }
+        guard apiKey.hasPrefix("AIza") && apiKey.count >= 30 else { throw AFHAMError.invalidAPIKey }
+        try save(key: geminiAPIKeyAccount, value: apiKey)
+        AppLogger.shared.log("Gemini API key saved securely", level: .success)
+    }
+    
+    func getGeminiAPIKey() -> String? {
+        return load(key: geminiAPIKeyAccount)
+    }
+    
+    func deleteGeminiAPIKey() throws {
+        try delete(key: geminiAPIKeyAccount)
+        AppLogger.shared.log("Gemini API key deleted", level: .info)
+    }
+    
+    var isGeminiKeyConfigured: Bool {
+        return getGeminiAPIKey() != nil
+    }
+    
+    func setKeyFromEnvironment() throws {
+        #if DEBUG
+        if let envKey = ProcessInfo.processInfo.environment["GEMINI_API_KEY"] {
+            try setGeminiAPIKey(envKey)
+            AppLogger.shared.log("API key loaded from environment variable", level: .info)
+        }
+        #endif
+    }
+    
+    func printKeyStatus() {
+        #if DEBUG
+        let isConfigured = isGeminiKeyConfigured
+        let keyPreview = getGeminiAPIKey()?.prefix(10) ?? "None"
+        AppLogger.shared.log("""
+        🔐 API Key Status:
+        - Configured: \(isConfigured)
+        - Preview: \(keyPreview)...
+        """, level: .debug)
+        #endif
+    }
+}
+
 // MARK: - BRAINSAIT: Logging System
-// Note: SecureAPIKeyManager is now in AFHAM/Core/SecureAPIKeyManager.swift
 class AppLogger {
     static let shared = AppLogger()
     
