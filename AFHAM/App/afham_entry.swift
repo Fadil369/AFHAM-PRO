@@ -21,9 +21,33 @@ struct AFHAMMainApp: App {
     private func setupApp() {
         // NEURAL: Configure UI appearance
         configureAppearance()
-        
+
+        // SECURITY: Initialize secure API key management
+        initializeSecureAPIKey()
+
         // BRAINSAIT: Initialize analytics and logging
-        AppLogger.shared.log("AFHAM App Launched")
+        AppLogger.shared.log("AFHAM App Launched", level: .success)
+    }
+
+    private func initializeSecureAPIKey() {
+        #if DEBUG
+        // In debug mode, try to load from environment variable
+        try? SecureAPIKeyManager.shared.setKeyFromEnvironment()
+        SecureAPIKeyManager.shared.printKeyStatus()
+        #endif
+
+        // Check if API key is configured
+        if !AFHAMConfig.isConfigured {
+            AppLogger.shared.log(
+                "⚠️ API Key not configured. Please configure it in Settings.",
+                level: .warning
+            )
+        } else {
+            AppLogger.shared.log(
+                "✅ API Key configured securely",
+                level: .success
+            )
+        }
     }
     
     private func configureAppearance() {
