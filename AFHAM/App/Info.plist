@@ -207,10 +207,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>يحتاج أفهم إلى الوصول للمستندات لرفعها وتحليلها للحصول على رؤى ذكية.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>يحتاج أفهم إلى الوصول للميكروفون لتمكين الأوامر الصوتية والتعرف على الكلام لتحليل المستندات.</string>
+<key>NSDocumentsFolderUsageDescription</key>
+<string>يحتاج أفهم إلى الوصول للمستندات لرفعها وتحليلها للحصول على رؤى ذكية.</string>
+<key>NSCameraUsageDescription</key>
+<string>يحتاج أفهم إلى الوصول للكاميرا لمسح المستندات بوضوح وتحسين الالتقاط الذكي. AFHAM requires camera access to scan documents clearly for intelligent capture.</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>يحتاج أفهم إلى الوصول للميكروفون لتمكين الأوامر الصوتية والتعرف على الكلام لتحليل المستندات.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>يستخدم أفهم التعرف على الكلام لتحويل أوامرك الصوتية إلى نص للاستعلام عن المستندات.</string>
 	<key>UIApplicationSceneManifest</key>
