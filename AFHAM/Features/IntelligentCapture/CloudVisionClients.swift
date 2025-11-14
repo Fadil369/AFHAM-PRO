@@ -494,8 +494,8 @@ extension GeminiFileSearchManager {
 
     private func uploadImageForVision(_ imageData: Data) async throws -> String {
         // Use existing file upload mechanism
-        let mimeType = "image/jpeg"
-        let fileName = "vision_\(UUID().uuidString).jpg"
+        _ = "image/jpeg"
+        _ = "vision_\(UUID().uuidString).jpg"
 
         // This would use the existing uploadFile method
         // For now, return a placeholder

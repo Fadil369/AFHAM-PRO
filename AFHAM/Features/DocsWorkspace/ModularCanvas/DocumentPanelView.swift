@@ -509,7 +509,10 @@ struct PipelineBuilderSheet: View {
         if let preset = selectedPreset {
             viewModel.createPipeline(preset: preset, for: panel)
         } else if !pipelineName.isEmpty && !customStages.isEmpty {
-            var pipeline = TransformationPipeline(name: pipelineName, stages: customStages)
+            let pipeline = TransformationPipeline(
+                name: pipelineName,
+                stages: customStages
+            )
             var updatedPanel = panel
             updatedPanel.activeTransformations.append(pipeline)
             viewModel.updatePanel(updatedPanel)

@@ -446,7 +446,7 @@ class ModularCanvasViewModel: ObservableObject {
     // MARK: - Pipeline Management
 
     func createPipeline(preset: PipelinePreset, for panel: DocumentPanel) {
-        var pipeline = TransformationPipeline(
+        let pipeline = TransformationPipeline(
             name: preset.rawValue,
             stages: preset.stages,
             preset: preset
@@ -475,14 +475,16 @@ class ModularCanvasViewModel: ObservableObject {
                 }
             }
 
-            do {
-                // Execute stage based on type
-                try await executeQuickAction(stage.type, on: panel)
-                updatedPipeline.stages[index].status = .completed
-            } catch {
+            // Execute stage based on type
+            await executeQuickAction(stage.type, on: panel)
+            
+            // Check if there was an error during execution
+            if let error = errorMessage {
                 updatedPipeline.stages[index].status = .error
-                errorMessage = "Pipeline failed at stage \(index + 1): \(error.localizedDescription)"
+                errorMessage = "Pipeline failed at stage \(index + 1): \(error)"
                 break
+            } else {
+                updatedPipeline.stages[index].status = .completed
             }
 
             // Brief pause between stages

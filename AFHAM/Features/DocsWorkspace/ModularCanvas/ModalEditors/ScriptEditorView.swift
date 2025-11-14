@@ -259,7 +259,7 @@ struct ScriptEditorView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color(.separator), lineWidth: 1)
                         )
-                        .onChange(of: binding.wrappedValue.content) { newValue in
+                        .onChange(of: binding.wrappedValue.content) { oldValue, newValue in
                             updateDuration(for: binding)
                         }
                 }
@@ -460,7 +460,7 @@ struct SectionRowView: View {
 
                     Spacer()
 
-                    if let speaker = section.speaker {
+                    if section.speaker != nil {
                         Image(systemName: "person.circle.fill")
                             .font(.caption)
                             .foregroundColor(.blue)

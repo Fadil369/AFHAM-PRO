@@ -247,7 +247,7 @@ class IntelligentCaptureManager: ObservableObject {
 
         // Log compliance event
         if let logger = complianceLogger {
-            let auditId = logger.logDocumentAccess(
+            _ = logger.logDocumentAccess(
                 documentId: insight.documentId.uuidString,
                 accessType: "intelligent_capture",
                 metadata: [

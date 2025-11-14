@@ -259,7 +259,7 @@ class MedicalTemplateEngine {
     ) async throws -> TemplateAnalysisResult {
 
         var findings: [TemplateFinding] = []
-        var interpretations: [Interpretation] = []
+        let interpretations: [Interpretation] = []
         var recommendations: [String] = []
 
         // Extract diagnoses

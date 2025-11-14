@@ -94,7 +94,11 @@ class CameraIntakeManager: NSObject, ObservableObject {
 
         // Configure photo output for high-res capture
         let photoOutput = AVCapturePhotoOutput()
-        photoOutput.isHighResolutionCaptureEnabled = true
+        if #available(iOS 16.0, *) {
+            photoOutput.maxPhotoDimensions = photoOutput.maxPhotoDimensions
+        } else {
+            photoOutput.isHighResolutionCaptureEnabled = true
+        }
 
         guard session.canAddOutput(photoOutput) else {
             throw CameraError.cannotAddOutput
@@ -171,7 +175,12 @@ class CameraIntakeManager: NSObject, ObservableObject {
         isProcessing = true
 
         let settings = AVCapturePhotoSettings()
-        settings.isHighResolutionPhotoEnabled = true
+        if #available(iOS 16.0, *) {
+            // Use maxPhotoDimensions for high resolution capture
+            settings.maxPhotoDimensions = photoOutput.maxPhotoDimensions
+        } else {
+            settings.isHighResolutionPhotoEnabled = true
+        }
         settings.flashMode = .auto
 
         // Enable depth data if available

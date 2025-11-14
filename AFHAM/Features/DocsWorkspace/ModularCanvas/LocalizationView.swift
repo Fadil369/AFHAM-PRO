@@ -88,7 +88,7 @@ struct LocalizationView: View {
                     }
                 }
                 .pickerStyle(.menu)
-                .onChange(of: layer.toneStyle) { _ in
+                .onChange(of: layer.toneStyle) {
                     applyToneAdjustment()
                 }
             }
