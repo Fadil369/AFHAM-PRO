@@ -62,7 +62,7 @@ cd /Users/fadil369/AFHAM-PRO-CORE
 ```bash
 # Navigate to your AFHAM project directory
 cd /path/to/AFHAM-PRO
-# Or if you're already in the project root:
+# Then open the project: open AFHAM.xcodeproj
 ```
 
 **Impact**: Users would get "directory not found" error
