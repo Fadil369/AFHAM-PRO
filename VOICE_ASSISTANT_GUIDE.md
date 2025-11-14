@@ -90,7 +90,11 @@ voiceManager.speak(
 
 ### Prerequisites
 
-1. **Device/Simulator**: iPhone with microphone (physical device recommended)
+1. **Device/Simulator**:
+   - Physical device recommended (simulator has microphone limitations)
+   - **Minimum**: iPhone 12 or newer
+   - **Recommended**: iPhone 14 Pro or newer for optimal performance
+   - **iOS Version**: 17.0 or later
 2. **Permissions**: Microphone and Speech Recognition enabled
 3. **Network**: Wi-Fi or cellular for Gemini API calls
 4. **Language**: System language set (Settings → General → Language & Region)
@@ -213,7 +217,7 @@ xcodebuild clean build \
   -scheme AFHAM \
   -project AFHAM.xcodeproj \
   -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
   CODE_SIGN_IDENTITY="" \
   CODE_SIGNING_REQUIRED=NO
 
