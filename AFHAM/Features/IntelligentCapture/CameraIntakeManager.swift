@@ -183,7 +183,12 @@ class CameraIntakeManager: NSObject, ObservableObject {
         isProcessing = true
 
         let settings = AVCapturePhotoSettings()
-        settings.isHighResolutionPhotoEnabled = true
+        // Use maxPhotoDimensions instead of deprecated isHighResolutionPhotoEnabled
+        if #available(iOS 16.0, *) {
+            settings.maxPhotoDimensions = photoOutput.maxPhotoDimensions
+        } else {
+            settings.isHighResolutionPhotoEnabled = true
+        }
         settings.flashMode = .auto
 
         // Enable depth data if available
