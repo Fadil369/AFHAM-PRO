@@ -33,7 +33,9 @@ let package = Package(
                 "AFHAMConstants.swift",
                 "AFHAM/Core/UI/GlassMorphism.swift",
                 "AFHAM/Core/UI/AccessibilityHelpers.swift",
-                "AFHAM/Core/UI/FlowLayout.swift"
+                "AFHAM/Core/UI/FlowLayout.swift",
+                "AFHAM/Features/UI/Components/MissionCardView.swift",
+                "AFHAM/Features/UI/Components/DocumentCapsule.swift"
             ]
         ),
         .testTarget(
