@@ -54,9 +54,9 @@ enum MissionType: String, CaseIterable, Identifiable {
 
     var tabIndex: Int {
         switch self {
-        case .upload: return 0  // Documents tab
-        case .ask:    return 1  // Chat tab
-        case .create: return 3  // Content Creator tab
+        case .upload: return 1  // Documents tab (Tab 1)
+        case .ask:    return 2  // Chat tab (Tab 2)
+        case .create: return 4  // Content Creator tab (Tab 4)
         }
     }
 }
@@ -150,7 +150,7 @@ struct MissionCardView: View {
         }
         .buttonStyle(PlainButtonStyle())
         .accessibilityLabel(missionAccessibilityLabel)
-        .accessibilityHint(.accessibilityHint(for: missionAction))
+        .accessibilityHint(String.accessibilityHint(for: missionAction))
         .simultaneousGesture(
             DragGesture(minimumDistance: 0)
                 .onChanged { _ in

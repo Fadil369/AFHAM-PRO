@@ -173,7 +173,7 @@ struct DocumentCapsuleView: View {
         }
         .buttonStyle(PlainButtonStyle())
         .accessibilityLabel(accessibilityLabel)
-        .accessibilityHint(.accessibilityHint(for: "view document details"))
+        .accessibilityHint(String.accessibilityHint(for: "view document details"))
         .accessibilityValue(accessibilityValue)
         .simultaneousGesture(
             DragGesture(minimumDistance: 0)
@@ -302,7 +302,7 @@ struct DocumentCapsuleView: View {
     }
 
     private var accessibilityLabel: String {
-        .accessibilityLabel(
+        String.accessibilityLabel(
             for: document.fileName,
             type: document.documentType,
             size: formatFileSize(document.fileSize),
@@ -441,31 +441,27 @@ struct DocumentCapsulesContainerView: View {
 // MARK: - DocumentMetadata Extension
 extension DocumentMetadata {
     var isFavorite: Bool {
-        // This would be stored in user preferences or document metadata
-        // For now, return false - can be enhanced later
+        // TODO: Implement favorites functionality with user preferences or document metadata
         return false
     }
 
     var processingProgress: Double? {
         if processingStatus == .processing {
-            // This would come from the actual processing pipeline
-            // For now, return a mock value
-            return 0.45
+            // TODO: Get actual progress from processing pipeline
+            return nil
         }
         return nil
     }
 
     var uploadDate: Date? {
-        // This would be stored with document metadata
-        // For now, return a mock recent date
-        return Date().addingTimeInterval(-3600 * Double.random(in: 1...48))
+        // TODO: Store and retrieve actual upload date from document metadata
+        return self.uploadedAt
     }
 
     var indexConfidence: Double? {
         if processingStatus == .ready {
-            // This would come from the indexing engine
-            // For now, return a mock value
-            return Double.random(in: 0.85...0.99)
+            // TODO: Get actual confidence score from indexing engine
+            return nil
         }
         return nil
     }

@@ -519,7 +519,7 @@ LazyVGrid(columns: 2) {
 ### Current Approach
 ✅ **Environment-driven**:
 ```swift
-.environment(\.layoutDirection, currentLanguage == .arabic ? .rightToLeft : .leftToLeft)
+.environment(\.layoutDirection, currentLanguage == .arabic ? .rightToLeft : .leftToRight)
 .multilineTextAlignment(isArabic ? .trailing : .leading)
 ```
 

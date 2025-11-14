@@ -50,7 +50,7 @@ struct CitationChipView: View {
         }
         .buttonStyle(PlainButtonStyle())
         .accessibilityLabel("Citation \(index + 1) from \(citation.sourceDocument)")
-        .accessibilityHint(.accessibilityHint(for: "view citation details"))
+        .accessibilityHint(String.accessibilityHint(for: "view citation details"))
     }
 }
 
@@ -458,13 +458,13 @@ struct DualPaneChatContainerView: View {
 // MARK: - Citation Extension
 extension Citation {
     var pageNumber: Int? {
-        // This would be extracted from actual document metadata
-        return Int.random(in: 1...50)
+        // TODO: Extract actual page number from document metadata
+        return nil
     }
 
     var relevanceScore: Double? {
-        // This would come from the search/ranking algorithm
-        return Double.random(in: 0.75...0.99)
+        // TODO: Get actual relevance score from search/ranking algorithm
+        return nil
     }
 }
 

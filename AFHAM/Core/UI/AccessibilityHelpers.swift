@@ -242,9 +242,9 @@ struct VoiceOverGroup<Content: View>: View {
 }
 
 // MARK: - Calm Mode Animation Modifier
-struct CalmModeAnimation: ViewModifier {
+struct CalmModeAnimation<V: Equatable>: ViewModifier {
     let animation: Animation
-    let value: some Equatable
+    let value: V
     @Environment(\.accessibilityReduceMotion) var reduceMotion
     @AppStorage("calmMode") var calmMode = false
 
