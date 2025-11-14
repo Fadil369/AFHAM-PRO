@@ -20,8 +20,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fastlane automation for deployment
 
 ### Fixed
-- Added bilingual camera usage disclosure to Info.plist to cover intelligent capture permissions.
+- Added bilingual camera usage disclosure to Info.plist to cover intelligent capture permissions
+- Resolved Swift concurrency warnings in IntelligentCapture (main actor isolation, nonisolated queue access)
+- Fixed deprecated `isHighResolutionPhotoEnabled` API - now using `maxPhotoDimensions` for iOS 16+
 - Contributing guidelines and code of conduct
+
+### Changed
+- Updated CameraIntakeManager to use modern photo capture API with backward compatibility
+- Added `@preconcurrency` import for AVFoundation to suppress Sendable warnings
+- Made `offlineQueue` and `queueForOfflineProcessing` nonisolated for thread-safe access
 
 ## [1.0.0] - 2025-01-XX (Planned)
 
