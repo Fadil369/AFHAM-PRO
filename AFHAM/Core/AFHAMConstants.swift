@@ -27,10 +27,47 @@ struct AFHAMConstants {
         static let timeout: TimeInterval = 30.0
         static let maxRetries = 3
         static let maxConcurrentUploads = 3
-        
+
         // Rate limiting
         static let maxRequestsPerMinute = 60
         static let rateLimitWindowSeconds: TimeInterval = 60
+
+        // Intelligent Capture APIs
+        static let deepSeekOCRBaseURL = "https://api.deepseek.com/v1/ocr"
+        static let openAIBaseURL = "https://api.openai.com/v1"
+        static let openAIVisionModel = "gpt-4-vision-preview"
+        static let geminiVisionModel = "gemini-pro-vision"
+    }
+
+    // MARK: - Intelligent Capture Configuration
+    struct IntelligentCapture {
+        // Processing settings
+        static let enableAppleVision = true
+        static let enableDeepSeekOCR = true
+        static let enableOpenAIVision = true
+        static let enableGeminiVision = true
+
+        // Image quality
+        static let imageCompressionQuality: CGFloat = 0.9
+        static let maxImageDimension: CGFloat = 4096
+
+        // OCR settings
+        static let ocrLanguages = ["en-US", "ar-SA"]
+        static let ocrConfidenceThreshold = 0.7
+
+        // Offline mode
+        static let offlineRetentionDays = 7
+        static let maxOfflineQueueSize = 100
+        static let offlineProcessingBatchSize = 5
+
+        // PHI Detection
+        static let enablePHIDetection = true
+        static let requireConsentForPHI = true
+        static let phiRedactionChar = "*"
+
+        // Cache settings
+        static let maxCachedInsights = 50
+        static let cacheExpirationDays = 30
     }
     
     // MARK: - File Handling

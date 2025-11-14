@@ -144,3 +144,54 @@
 "upload_button" = "زر رفع المستند";
 "language_selector" = "محدد اللغة";
 "content_type_selector" = "محدد نوع المحتوى";
+
+/* Intelligent Capture - Document Types */
+"ic.doctype.medical_report" = "تقرير طبي";
+"ic.doctype.prescription" = "وصفة طبية";
+"ic.doctype.insurance_claim" = "مطالبة تأمينية";
+"ic.doctype.lab_report" = "تقرير مختبري";
+"ic.doctype.pharmacy_label" = "ملصق صيدلية";
+"ic.doctype.food_label" = "ملصق غذائي";
+"ic.doctype.spreadsheet" = "جدول بيانات";
+"ic.doctype.contract" = "عقد";
+"ic.doctype.generic" = "مستند عام";
+
+/* Intelligent Capture - Processing Stages */
+"ic.stage.captured" = "تم التصوير";
+"ic.stage.apple_vision" = "تحليل محلي";
+"ic.stage.deepseek" = "استخراج النص المتقدم";
+"ic.stage.multimodal" = "التحليل الذكي";
+"ic.stage.completed" = "اكتمل";
+"ic.stage.failed" = "فشل";
+
+/* Intelligent Capture - UI */
+"ic.title" = "التصوير الذكي";
+"ic.capture_button" = "تصوير مستند";
+"ic.batch_mode" = "وضع متعدد الصفحات";
+"ic.history" = "سجل التصوير";
+"ic.processing" = "جاري معالجة المستند...";
+"ic.allow_phi" = "السماح بمعالجة المعلومات الصحية";
+"ic.deferred_analysis" = "تم تأجيل بعض التحليلات - سيكتمل عند الاتصال بالإنترنت";
+
+/* Intelligent Capture - Results */
+"ic.results.summary" = "الملخص";
+"ic.results.text" = "النص المستخرج";
+"ic.results.insights" = "الرؤى";
+"ic.results.analysis" = "التحليل التفصيلي";
+"ic.results.confidence" = "مستوى الثقة";
+"ic.results.action_items" = "بنود العمل";
+"ic.results.key_insights" = "الرؤى الرئيسية";
+"ic.results.bilingual_summary" = "الملخص ثنائي اللغة";
+"ic.results.compliance" = "الامتثال";
+"ic.results.findings" = "النتائج";
+"ic.results.interpretations" = "التفسيرات";
+"ic.results.recommendations" = "التوصيات";
+
+/* Intelligent Capture - Export */
+"ic.export.title" = "تصدير";
+"ic.export.fhir" = "ملاحظة FHIR";
+"ic.export.pdf" = "تقرير PDF";
+"ic.export.csv" = "بيانات CSV";
+"ic.export.json" = "JSON";
+"ic.export.whatsapp" = "ملخص واتساب";
+"ic.export.text" = "نص عادي";
