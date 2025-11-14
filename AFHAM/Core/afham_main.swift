@@ -328,6 +328,21 @@ class GeminiFileSearchManager: ObservableObject {
         }
     }
 
+    // Overloaded method for ModularCanvas compatibility
+    func queryDocuments(query: String, fileIDs: [String], storeID: String?) async throws -> (String, [Citation]) {
+        // Use the provided storeID if available, otherwise fall back to the instance's storeID
+        let effectiveStoreID = storeID ?? fileSearchStoreID ?? ""
+
+        guard !effectiveStoreID.isEmpty else {
+            throw AFHAMError.queryFailed("No file search store available. Please upload documents first.")
+        }
+
+        // Use retry logic for the query
+        return try await performRequestWithRetry {
+            try await self.executeQuery(question: query, storeID: effectiveStoreID)
+        }
+    }
+
     // Internal method to execute the actual query
     private func executeQuery(question: String, storeID: String) async throws -> (answer: String, citations: [Citation]) {
         let endpoint = "\(baseURL)/models/\(AFHAMConfig.geminiModel):generateContent?key=\(AFHAMConfig.geminiAPIKey)"

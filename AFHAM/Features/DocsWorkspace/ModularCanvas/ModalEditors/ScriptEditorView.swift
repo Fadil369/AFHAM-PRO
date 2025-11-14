@@ -129,18 +129,22 @@ struct ScriptEditorView: View {
     // MARK: - Editor View
 
     private var editorView: some View {
-        HSplitView {
+        HStack(spacing: 0) {
             // Section List
             sectionListView
-                .frame(minWidth: 200, idealWidth: 250, maxWidth: 300)
+                .frame(width: 250)
+
+            Divider()
 
             // Section Editor
             sectionEditorView
-                .frame(minWidth: 400)
+                .frame(minWidth: 300)
+
+            Divider()
 
             // Preview
             scriptPreviewView
-                .frame(minWidth: 350)
+                .frame(width: 350)
         }
     }
 
@@ -493,5 +497,3 @@ struct SectionRowView: View {
         return String(format: "%d:%02d", minutes, seconds)
     }
 }
-
-extension ScriptConfiguration.ScriptType: CaseIterable {}

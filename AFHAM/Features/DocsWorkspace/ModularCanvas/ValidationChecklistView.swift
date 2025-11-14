@@ -244,7 +244,10 @@ struct ValidationChecklistView: View {
                     id: "tone_appropriate",
                     title: "Tone Appropriate",
                     description: "Content matches selected tone style",
-                    status: getValidationStatus(\.toneCompliance) ? .passed : .warning,
+                    status: {
+                        let value = panel.activeTransformations.first?.output?.validationResults.toneCompliance ?? false
+                        return value ? .passed : .warning
+                    }(),
                     action: "Adjust tone"
                 ),
                 ChecklistItem(
@@ -407,8 +410,9 @@ struct ValidationChecklistView: View {
     }
 
     // Check functions
-    private func getValidationStatus(_ keyPath: KeyPath<ValidationResults, Bool>) -> Bool {
-        panel.activeTransformations.first?.output?.validationResults[keyPath: keyPath] ?? false
+    private func getValidationStatus(_ keyPath: KeyPath<ValidationResults, Bool>) -> CheckStatus {
+        let value = panel.activeTransformations.first?.output?.validationResults[keyPath: keyPath] ?? false
+        return value ? .passed : .pending
     }
 
     private func checkGlossaryTerms() -> CheckStatus {

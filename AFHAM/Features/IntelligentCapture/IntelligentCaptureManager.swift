@@ -61,7 +61,7 @@ class IntelligentCaptureManager: ObservableObject {
             self.openAIClient = nil
         }
 
-        self.geminiManager = apiKeys.geminiKey != nil ? GeminiFileSearchManager(appState: AppState()) : nil
+        self.geminiManager = apiKeys.geminiKey != nil ? GeminiFileSearchManager() : nil
 
         self.offlineQueue = OfflineCaptureQueue()
         self.complianceLogger = complianceLogger
@@ -196,7 +196,7 @@ class IntelligentCaptureManager: ObservableObject {
                         extractedText: redactedText
                     )
                 } catch {
-                    self.queueForOfflineProcessing(documentId: capturedDoc.id, jobType: .openAIVision, imageData: imageData)
+                    await self.queueForOfflineProcessing(documentId: capturedDoc.id, jobType: .openAIVision, imageData: imageData)
                     return nil
                 }
             }()
@@ -210,7 +210,7 @@ class IntelligentCaptureManager: ObservableObject {
                         extractedText: redactedText
                     )
                 } catch {
-                    self.queueForOfflineProcessing(documentId: capturedDoc.id, jobType: .geminiVision, imageData: imageData)
+                    await self.queueForOfflineProcessing(documentId: capturedDoc.id, jobType: .geminiVision, imageData: imageData)
                     return nil
                 }
             }()
@@ -300,7 +300,7 @@ class IntelligentCaptureManager: ObservableObject {
             : summaries.joined(separator: "\n\n")
 
         // Aggregate action items
-        var allActions = openAIAnalysis?.actionItems ?? []
+        let allActions = openAIAnalysis?.actionItems ?? []
         // Could extract actions from Gemini recommendations as well
 
         // Aggregate entities

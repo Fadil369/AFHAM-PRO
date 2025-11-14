@@ -15,10 +15,12 @@ struct CollaborativeReviewView: View {
     @State private var commentPosition: String = ""
 
     var body: some View {
-        HSplitView {
+        HStack(spacing: 0) {
             // Content View with Comments
             contentWithCommentsView
                 .frame(minWidth: 500)
+
+            Divider()
 
             // Sidebar: Comments & Revisions
             sidebarView

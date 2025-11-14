@@ -13,14 +13,18 @@ struct SlideEditorView: View {
     @State private var showThemePicker: Bool = false
 
     var body: some View {
-        HSplitView {
+        HStack(spacing: 0) {
             // Slide List (Thumbnail View)
             slideListView
                 .frame(minWidth: 200, idealWidth: 250, maxWidth: 300)
 
+            Divider()
+
             // Main Editor
             slideEditorView
                 .frame(minWidth: 400)
+
+            Divider()
 
             // Preview Panel
             slidePreviewView
@@ -409,6 +413,3 @@ struct ThemePickerSheet: View {
         }
     }
 }
-
-extension SlideConfiguration.SlideTheme: CaseIterable {}
-extension SlideConfiguration.SlideLayout: CaseIterable {}

@@ -77,7 +77,8 @@ class ExportManager {
                         system: "http://terminology.hl7.org/CodeSystem/observation-category",
                         code: "procedure",
                         display: "Procedure"
-                    )]
+                    )],
+                    text: nil
                 )
             ],
             code: FHIRCodeableConcept(
@@ -146,8 +147,7 @@ class ExportManager {
             yPosition += 40
 
             // Image
-            if let imageData = insight.capturedDocument.imageData,
-               let image = UIImage(data: imageData) {
+            if let image = UIImage(data: insight.capturedDocument.imageData) {
                 let maxImageHeight: CGFloat = 200
                 let imageWidth: CGFloat = 495
                 let aspectRatio = image.size.height / image.size.width

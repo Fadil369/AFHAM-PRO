@@ -61,7 +61,7 @@ struct CapturedDocument: Identifiable, Codable {
     let id: UUID
     let timestamp: Date
     let imageData: Data
-    let documentType: DocumentType
+    var documentType: DocumentType
     let language: String // "ar", "en", or "mixed"
     let pages: Int
     let metadata: DocumentMetadataInfo

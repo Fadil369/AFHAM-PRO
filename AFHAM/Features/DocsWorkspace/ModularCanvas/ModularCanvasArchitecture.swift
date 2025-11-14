@@ -166,7 +166,7 @@ struct TransformationOutput: Codable {
     let format: OutputFormat
     let metadata: [String: String]
     let assets: [ExtractedAsset]
-    let validationResults: ValidationResults
+    var validationResults: ValidationResults
     let generatedAt: Date
 }
 
@@ -231,7 +231,7 @@ enum PipelinePreset: String, Codable, CaseIterable {
             return [
                 TransformationStage(type: .summarize, parameters: ["style": "engaging"]),
                 TransformationStage(type: .socialPost, parameters: ["platform": "multiple"]),
-                TransformationStage(type: .translate, parameters: ["targetLanguage": "ar"})
+                TransformationStage(type: .translate, parameters: ["targetLanguage": "ar"])
             ]
         case .multilingualFAQ:
             return [
@@ -285,11 +285,13 @@ enum PipelinePreset: String, Codable, CaseIterable {
 // MARK: - Modal-Specific Editors
 
 /// Configuration for modal-specific editors
-enum EditorMode: String, Codable {
+enum EditorMode: String, Codable, Identifiable {
     case slides = "Slides"
     case script = "Script"
     case chatbot = "Chatbot"
     case standard = "Standard"
+
+    var id: String { rawValue }
 
     var icon: String {
         switch self {
@@ -326,7 +328,7 @@ struct SlideConfiguration: Codable {
         }
     }
 
-    enum SlideTheme: String, Codable {
+    enum SlideTheme: String, Codable, CaseIterable {
         case professional = "Professional"
         case training = "Training"
         case medical = "Medical"

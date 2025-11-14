@@ -440,7 +440,7 @@ struct ExportTemplatesView: View {
         # \(metadata.title)
 
         **Author:** \(metadata.author)
-        **Generated:** \(Date().formatted(date: .long, time: .short))
+        **Generated:** \(Date().formatted(date: .long, time: .shortened))
 
         ---
 
@@ -661,5 +661,3 @@ struct ShareSheet: NSViewRepresentable {
     func updateNSView(_ nsView: NSView, context: Context) {}
 }
 #endif
-
-extension ExportTemplate.ExportPlatform: CaseIterable {}

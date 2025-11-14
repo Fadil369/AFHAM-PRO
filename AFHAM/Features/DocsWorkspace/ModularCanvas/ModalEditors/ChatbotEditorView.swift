@@ -252,18 +252,16 @@ struct ChatbotEditorView: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
 
-            ForEach(Array(configuration.citations.enumerated()), id: \.element.id) { index, citation in
+            ForEach(Array(configuration.citations.enumerated()), id: \.0) { index, citation in
                 HStack(alignment: .top, spacing: 12) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(citation.documentName)
+                        Text(citation.source)
                             .font(.subheadline.bold())
 
-                        if let snippet = citation.snippet {
-                            Text(snippet)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                                .lineLimit(2)
-                        }
+                        Text(citation.excerpt)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .lineLimit(2)
 
                         if let pageNumber = citation.pageNumber {
                             Text("Page \(pageNumber)")
@@ -526,11 +524,9 @@ struct ChatbotEditorView: View {
 
     private func addCitation() {
         let newCitation = Citation(
-            id: UUID(),
-            documentName: "Source Document",
-            snippet: "Relevant snippet...",
+            source: "Source Document",
             pageNumber: 1,
-            score: 0.9
+            excerpt: "Relevant excerpt..."
         )
         configuration.citations.append(newCitation)
     }
@@ -617,5 +613,3 @@ struct FlowLayout: Layout {
         }
     }
 }
-
-extension ChatbotConfiguration.ValidationStatus: CaseIterable {}

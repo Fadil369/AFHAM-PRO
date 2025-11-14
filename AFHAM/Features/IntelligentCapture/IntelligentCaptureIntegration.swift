@@ -126,22 +126,22 @@ extension SecureAPIKeyManager {
 
     /// Set DeepSeek API key
     func setDeepSeekAPIKey(_ apiKey: String) {
-        setAPIKey(apiKey, for: "deepseek")
+        self.setAPIKey(apiKey, for: "deepseek")
     }
 
     /// Set OpenAI API key
     func setOpenAIAPIKey(_ apiKey: String) {
-        setAPIKey(apiKey, for: "openai")
+        self.setAPIKey(apiKey, for: "openai")
     }
 
     /// Get DeepSeek API key
     func getDeepSeekAPIKey() -> String? {
-        return getAPIKey(for: "deepseek")
+        return self.getAPIKey(for: "deepseek")
     }
 
     /// Get OpenAI API key
     func getOpenAIAPIKey() -> String? {
-        return getAPIKey(for: "openai")
+        return self.getAPIKey(for: "openai")
     }
 }
 

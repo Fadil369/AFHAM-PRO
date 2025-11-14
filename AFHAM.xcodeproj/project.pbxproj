@@ -14,6 +14,28 @@
 		A1234567890ABCDEF009 /* afham_ui.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890ABCDEF010 /* afham_ui.swift */; };
 		A1234567890ABCDEF011 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890ABCDEF012 /* LocalizationManager.swift */; };
 		A1234567890ABCDEF013 /* AFHAMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890ABCDEF014 /* AFHAMConstants.swift */; };
+		F235799636AF4B4B867DE9EC /* AppleVisionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAABEF405866492D840AF59D /* AppleVisionProcessor.swift */; };
+		AA53359A65D64AA59235F8D0 /* CameraIntakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64306AB2894B038922A7AF /* CameraIntakeManager.swift */; };
+		5CFE7009012A420CA1A05EED /* CloudVisionClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4840C6C259624E5C86BBEBBB /* CloudVisionClients.swift */; };
+		63F5821C7F1742D48B3E12AD /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4585618630E540FCB864620B /* ExportManager.swift */; };
+		02796D994C1B40648C4738A0 /* IntelligentCaptureIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB6AC99E6864DF6AEC6D587 /* IntelligentCaptureIntegration.swift */; };
+		B00880E16F274B538BEE29CB /* IntelligentCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8FB3EE9CBC44979C06C326 /* IntelligentCaptureManager.swift */; };
+		40154EAC01E64487B04A876A /* IntelligentCaptureModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E612BBA8B943EA8BFB83B8 /* IntelligentCaptureModels.swift */; };
+		A4F4E273307744B697F5B9D6 /* IntelligentCaptureViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9244F6BBB11F46438CE97A19 /* IntelligentCaptureViews.swift */; };
+		B2438159EAD245FE80B1F726 /* MedicalTemplateEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87CBB52AE484EB39C53087C /* MedicalTemplateEngine.swift */; };
+		D1E1359745944277872A2A4C /* CollaborativeReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717A4F7A17094B7AA57048CF /* CollaborativeReviewView.swift */; };
+		B68E3CEE95AB4197A026D758 /* DocumentPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743E1E7C9CF6461985853494 /* DocumentPanelView.swift */; };
+		5244BE8DC1484EE78C3416ED /* ExportTemplatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B557663B4464A34BDE32157 /* ExportTemplatesView.swift */; };
+		6E03694316874AB4B8EAD913 /* LocalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6588E3BB53D04163844B809F /* LocalizationView.swift */; };
+		E50F4808E9EB40B1BB816D01 /* ModularCanvasArchitecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D37FD3CE0984E4F8A106D8B /* ModularCanvasArchitecture.swift */; };
+		A21E9DEC8928415DBEC4450B /* ModularCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A19ABA88CF24D3EA28AA9FA /* ModularCanvasView.swift */; };
+		C84DCDFC6C5741B7819DCC40 /* ModularCanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A236CB2A27E4D23A555191B /* ModularCanvasViewModel.swift */; };
+		FB5DC2E6D4F642479E9402E1 /* PipelineStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF01343AF814E60BA243743 /* PipelineStepperView.swift */; };
+		CE0409D3FD0E4D2C99A86979 /* SmartAssetRecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D03F2846DD49DE9A66D98F /* SmartAssetRecommendationsView.swift */; };
+		D92D060AD3D940C7B5F3F1EC /* ValidationChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA91BF21E49D5A2F6F9F6 /* ValidationChecklistView.swift */; };
+		81C07113A88A48EC82326CCA /* SlideEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DBF3C5089740D08B5350E4 /* SlideEditorView.swift */; };
+		E709614C8CEB4F15912B91DF /* ChatbotEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83F4CD662944DFB5F062C7 /* ChatbotEditorView.swift */; };
+		2FC14E53FCA047A6B91F5714 /* ScriptEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A993DFC75F4CB38D581699 /* ScriptEditorView.swift */; };
 		A1234567890ABCDEF015 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1234567890ABCDEF016 /* Assets.xcassets */; };
 		A1234567890ABCDEF017 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1234567890ABCDEF018 /* Localizable.strings */; };
 /* End PBXBuildFile section */
@@ -32,6 +54,28 @@
 		A1234567890ABCDEF020 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1234567890ABCDEF021 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B122B1962EC5F75B00DEFEEA /* Info.plist.example */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Info.plist.example; sourceTree = "<group>"; };
+		EAABEF405866492D840AF59D /* AppleVisionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleVisionProcessor.swift; sourceTree = "<group>"; };
+		DA64306AB2894B038922A7AF /* CameraIntakeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraIntakeManager.swift; sourceTree = "<group>"; };
+		4840C6C259624E5C86BBEBBB /* CloudVisionClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudVisionClients.swift; sourceTree = "<group>"; };
+		4585618630E540FCB864620B /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
+		5EB6AC99E6864DF6AEC6D587 /* IntelligentCaptureIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentCaptureIntegration.swift; sourceTree = "<group>"; };
+		1A8FB3EE9CBC44979C06C326 /* IntelligentCaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentCaptureManager.swift; sourceTree = "<group>"; };
+		57E612BBA8B943EA8BFB83B8 /* IntelligentCaptureModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentCaptureModels.swift; sourceTree = "<group>"; };
+		9244F6BBB11F46438CE97A19 /* IntelligentCaptureViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentCaptureViews.swift; sourceTree = "<group>"; };
+		E87CBB52AE484EB39C53087C /* MedicalTemplateEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalTemplateEngine.swift; sourceTree = "<group>"; };
+		717A4F7A17094B7AA57048CF /* CollaborativeReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborativeReviewView.swift; sourceTree = "<group>"; };
+		743E1E7C9CF6461985853494 /* DocumentPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPanelView.swift; sourceTree = "<group>"; };
+		1B557663B4464A34BDE32157 /* ExportTemplatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTemplatesView.swift; sourceTree = "<group>"; };
+		6588E3BB53D04163844B809F /* LocalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationView.swift; sourceTree = "<group>"; };
+		7D37FD3CE0984E4F8A106D8B /* ModularCanvasArchitecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModularCanvasArchitecture.swift; sourceTree = "<group>"; };
+		2A19ABA88CF24D3EA28AA9FA /* ModularCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModularCanvasView.swift; sourceTree = "<group>"; };
+		9A236CB2A27E4D23A555191B /* ModularCanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModularCanvasViewModel.swift; sourceTree = "<group>"; };
+		6CF01343AF814E60BA243743 /* PipelineStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineStepperView.swift; sourceTree = "<group>"; };
+		96D03F2846DD49DE9A66D98F /* SmartAssetRecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAssetRecommendationsView.swift; sourceTree = "<group>"; };
+		AB8FA91BF21E49D5A2F6F9F6 /* ValidationChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationChecklistView.swift; sourceTree = "<group>"; };
+		55DBF3C5089740D08B5350E4 /* SlideEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideEditorView.swift; sourceTree = "<group>"; };
+		7C83F4CD662944DFB5F062C7 /* ChatbotEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatbotEditorView.swift; sourceTree = "<group>"; };
+		22A993DFC75F4CB38D581699 /* ScriptEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptEditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +142,8 @@
 				A1234567890ABCDEF030 /* Chat */,
 				A1234567890ABCDEF031 /* Content */,
 				A1234567890ABCDEF032 /* UI */,
+				CD43F98FC51449F29ACE2E1F /* DocsWorkspace */,
+				1D4470AA58C44E1C8FCE8CD0 /* IntelligentCapture */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -141,6 +187,58 @@
 				A1234567890ABCDEF018 /* Localizable.strings */,
 			);
 			path = Localizations;
+			sourceTree = "<group>";
+		};
+		CD43F98FC51449F29ACE2E1F /* DocsWorkspace */ = {
+			isa = PBXGroup;
+			children = (
+				5EAB97DC33FC4D9E9776FBDB /* ModularCanvas */,
+			);
+			path = DocsWorkspace;
+			sourceTree = "<group>";
+		};
+		5EAB97DC33FC4D9E9776FBDB /* ModularCanvas */ = {
+			isa = PBXGroup;
+			children = (
+				717A4F7A17094B7AA57048CF /* CollaborativeReviewView.swift */,
+				743E1E7C9CF6461985853494 /* DocumentPanelView.swift */,
+				1B557663B4464A34BDE32157 /* ExportTemplatesView.swift */,
+				6588E3BB53D04163844B809F /* LocalizationView.swift */,
+				7D37FD3CE0984E4F8A106D8B /* ModularCanvasArchitecture.swift */,
+				2A19ABA88CF24D3EA28AA9FA /* ModularCanvasView.swift */,
+				9A236CB2A27E4D23A555191B /* ModularCanvasViewModel.swift */,
+				6CF01343AF814E60BA243743 /* PipelineStepperView.swift */,
+				96D03F2846DD49DE9A66D98F /* SmartAssetRecommendationsView.swift */,
+				AB8FA91BF21E49D5A2F6F9F6 /* ValidationChecklistView.swift */,
+				1D06F57511194F50A820AC07 /* ModalEditors */,
+			);
+			path = ModularCanvas;
+			sourceTree = "<group>";
+		};
+		1D06F57511194F50A820AC07 /* ModalEditors */ = {
+			isa = PBXGroup;
+			children = (
+				55DBF3C5089740D08B5350E4 /* SlideEditorView.swift */,
+				7C83F4CD662944DFB5F062C7 /* ChatbotEditorView.swift */,
+				22A993DFC75F4CB38D581699 /* ScriptEditorView.swift */,
+			);
+			path = ModalEditors;
+			sourceTree = "<group>";
+		};
+		1D4470AA58C44E1C8FCE8CD0 /* IntelligentCapture */ = {
+			isa = PBXGroup;
+			children = (
+				EAABEF405866492D840AF59D /* AppleVisionProcessor.swift */,
+				DA64306AB2894B038922A7AF /* CameraIntakeManager.swift */,
+				4840C6C259624E5C86BBEBBB /* CloudVisionClients.swift */,
+				4585618630E540FCB864620B /* ExportManager.swift */,
+				5EB6AC99E6864DF6AEC6D587 /* IntelligentCaptureIntegration.swift */,
+				1A8FB3EE9CBC44979C06C326 /* IntelligentCaptureManager.swift */,
+				57E612BBA8B943EA8BFB83B8 /* IntelligentCaptureModels.swift */,
+				9244F6BBB11F46438CE97A19 /* IntelligentCaptureViews.swift */,
+				E87CBB52AE484EB39C53087C /* MedicalTemplateEngine.swift */,
+			);
+			path = IntelligentCapture;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +319,28 @@
 				A1234567890ABCDEF009 /* afham_ui.swift in Sources */,
 				A1234567890ABCDEF011 /* LocalizationManager.swift in Sources */,
 				A1234567890ABCDEF013 /* AFHAMConstants.swift in Sources */,
+				F235799636AF4B4B867DE9EC /* AppleVisionProcessor.swift in Sources */,
+				AA53359A65D64AA59235F8D0 /* CameraIntakeManager.swift in Sources */,
+				5CFE7009012A420CA1A05EED /* CloudVisionClients.swift in Sources */,
+				63F5821C7F1742D48B3E12AD /* ExportManager.swift in Sources */,
+				02796D994C1B40648C4738A0 /* IntelligentCaptureIntegration.swift in Sources */,
+				B00880E16F274B538BEE29CB /* IntelligentCaptureManager.swift in Sources */,
+				40154EAC01E64487B04A876A /* IntelligentCaptureModels.swift in Sources */,
+				A4F4E273307744B697F5B9D6 /* IntelligentCaptureViews.swift in Sources */,
+				B2438159EAD245FE80B1F726 /* MedicalTemplateEngine.swift in Sources */,
+				D1E1359745944277872A2A4C /* CollaborativeReviewView.swift in Sources */,
+				B68E3CEE95AB4197A026D758 /* DocumentPanelView.swift in Sources */,
+				5244BE8DC1484EE78C3416ED /* ExportTemplatesView.swift in Sources */,
+				6E03694316874AB4B8EAD913 /* LocalizationView.swift in Sources */,
+				E50F4808E9EB40B1BB816D01 /* ModularCanvasArchitecture.swift in Sources */,
+				A21E9DEC8928415DBEC4450B /* ModularCanvasView.swift in Sources */,
+				C84DCDFC6C5741B7819DCC40 /* ModularCanvasViewModel.swift in Sources */,
+				FB5DC2E6D4F642479E9402E1 /* PipelineStepperView.swift in Sources */,
+				CE0409D3FD0E4D2C99A86979 /* SmartAssetRecommendationsView.swift in Sources */,
+				D92D060AD3D940C7B5F3F1EC /* ValidationChecklistView.swift in Sources */,
+				81C07113A88A48EC82326CCA /* SlideEditorView.swift in Sources */,
+				E709614C8CEB4F15912B91DF /* ChatbotEditorView.swift in Sources */,
+				2FC14E53FCA047A6B91F5714 /* ScriptEditorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

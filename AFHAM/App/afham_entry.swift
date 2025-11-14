@@ -214,7 +214,30 @@ class SecureAPIKeyManager {
     var isGeminiKeyConfigured: Bool {
         return getGeminiAPIKey() != nil
     }
-    
+
+    // MARK: - Generic API Key Methods (for multi-service support)
+
+    /// Get API key for any service
+    func getAPIKey(for service: String) -> String? {
+        return load(key: "\(service)_api_key")
+    }
+
+    /// Set API key for any service
+    func setAPIKey(_ apiKey: String, for service: String) {
+        do {
+            try save(key: "\(service)_api_key", value: apiKey)
+            AppLogger.shared.log("\(service) API key saved securely", level: .success)
+        } catch {
+            AppLogger.shared.log("Failed to save \(service) API key: \(error)", level: .error)
+        }
+    }
+
+    /// Delete API key for any service
+    func deleteAPIKey(for service: String) throws {
+        try delete(key: "\(service)_api_key")
+        AppLogger.shared.log("\(service) API key deleted", level: .info)
+    }
+
     func setKeyFromEnvironment() throws {
         #if DEBUG
         if let envKey = ProcessInfo.processInfo.environment["GEMINI_API_KEY"] {
@@ -234,6 +257,53 @@ class SecureAPIKeyManager {
         - Preview: \(keyPreview)...
         """, level: .debug)
         #endif
+    }
+}
+
+// MARK: - Request Manager (Stub for Intelligent Capture compatibility)
+// TODO: Move AFHAM/Core/RequestManager.swift to Xcode project and remove this stub
+@MainActor
+class RequestManager: ObservableObject {
+    static let shared = RequestManager()
+    private init() {}
+
+    func execute<T>(
+        id: String = UUID().uuidString,
+        priority: Int = 1,
+        operation: @escaping () async throws -> T
+    ) async throws -> T {
+        return try await operation()
+    }
+
+    func cancel(requestId: String) {}
+    func cancelAll() {}
+}
+
+// MARK: - Compliance Audit Logger (Stub for Intelligent Capture compatibility)
+// TODO: Move AFHAM/Features/Healthcare/NPHIESCompliance.swift to Xcode project and remove this stub
+actor ComplianceAuditLogger {
+    init() {}
+
+    func logEvent(_ event: String, details: [String: Any] = [:]) async {
+        AppLogger.shared.log("Compliance: \(event)", level: .info)
+    }
+
+    func logPHIAccess(dataType: String, purpose: String) async {
+        AppLogger.shared.log("PHI Access: \(dataType) for \(purpose)", level: .info)
+    }
+
+    @discardableResult
+    nonisolated func logDocumentAccess(
+        documentId: String,
+        accessType: String,
+        metadata: [String: Any] = [:]
+    ) -> String {
+        let auditId = UUID().uuidString
+        AppLogger.shared.log(
+            "Document Access [\(accessType)] id=\(documentId) audit=\(auditId) metadata=\(metadata)",
+            level: .info
+        )
+        return auditId
     }
 }
 

@@ -120,7 +120,7 @@ class CameraIntakeManager: NSObject, ObservableObject {
     }
 
     /// Stop the camera capture session
-    func stopSession() {
+    nonisolated func stopSession() {
         captureQueue.async { [weak self] in
             self?.captureSession?.stopRunning()
 

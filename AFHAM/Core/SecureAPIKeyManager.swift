@@ -47,6 +47,35 @@ class SecureAPIKeyManager {
         return getGeminiAPIKey() != nil && !(getGeminiAPIKey()?.isEmpty ?? true)
     }
 
+    // MARK: - Generic API Key Management
+
+    /// Retrieves an API key for any service from secure storage
+    /// - Parameter service: The service identifier (e.g., "deepseek", "openai", "gemini")
+    /// - Returns: API key if found, nil otherwise
+    func getAPIKey(for service: String) -> String? {
+        return getKey(identifier: "\(service)APIKey")
+    }
+
+    /// Stores an API key for any service securely in Keychain
+    /// - Parameters:
+    ///   - key: The API key to store
+    ///   - service: The service identifier (e.g., "deepseek", "openai", "gemini")
+    func setAPIKey(_ key: String, for service: String) {
+        do {
+            try setKey(key, identifier: "\(service)APIKey")
+            AppLogger.shared.log("\(service) API key stored securely", level: .info)
+        } catch {
+            AppLogger.shared.log("Failed to store \(service) API key: \(error)", level: .error)
+        }
+    }
+
+    /// Removes an API key for any service from secure storage
+    /// - Parameter service: The service identifier (e.g., "deepseek", "openai", "gemini")
+    func removeAPIKey(for service: String) {
+        removeKey(identifier: "\(service)APIKey")
+        AppLogger.shared.log("\(service) API key removed", level: .info)
+    }
+
     /// Rotates the API key (useful for security compliance)
     /// - Parameter newKey: The new API key
     /// - Throws: AFHAMError if rotation fails

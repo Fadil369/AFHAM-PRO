@@ -192,7 +192,10 @@ enum LocalizationKey {
     case uploadButton
     case languageSelector
     case contentTypeSelector
-    
+
+    // MARK: - Custom Keys (for dynamic content)
+    case customKey(String)
+
     func localized(for language: LocalizationManager.AppLanguage) -> String {
         switch language {
         case .arabic:
@@ -200,6 +203,10 @@ enum LocalizationKey {
         case .english:
             return englishValue
         }
+    }
+
+    var localized: String {
+        LocalizationManager.shared.localized(self)
     }
     
     private var englishValue: String {
@@ -342,6 +349,9 @@ enum LocalizationKey {
         case .uploadButton: return "Upload document button"
         case .languageSelector: return "Language selector"
         case .contentTypeSelector: return "Content type selector"
+
+        // Custom Keys
+        case .customKey(let key): return key
         }
     }
     
@@ -485,6 +495,9 @@ enum LocalizationKey {
         case .uploadButton: return "زر رفع المستند"
         case .languageSelector: return "محدد اللغة"
         case .contentTypeSelector: return "محدد نوع المحتوى"
+
+        // Custom Keys
+        case .customKey(let key): return key
         }
     }
 }

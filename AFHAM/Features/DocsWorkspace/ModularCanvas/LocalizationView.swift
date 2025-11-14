@@ -371,7 +371,7 @@ struct LocalizationView: View {
 
         // Check if translation is complete
         results.localizationComplete = !layer.translatedContent.isEmpty &&
-                                       layer.translatedContent.count > layer.sourceContent.count * 0.5
+                                       layer.translatedContent.count > Int(Double(layer.sourceContent.count) * 0.5)
 
         // Check tone compliance (simple heuristic)
         results.toneCompliance = true

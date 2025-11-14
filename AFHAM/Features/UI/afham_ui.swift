@@ -9,6 +9,7 @@ import UniformTypeIdentifiers
 struct AFHAMApp: View {
     @StateObject private var geminiManager = GeminiFileSearchManager()
     @StateObject private var voiceManager = VoiceAssistantManager()
+    @EnvironmentObject var appState: AppState
     @State private var selectedTab = 0
     @State private var currentLanguage: AppLanguage = .arabic
     
@@ -52,6 +53,17 @@ struct AFHAMApp: View {
                     }
                     .tag(0)
                 
+                IntelligentCaptureTabView()
+                    .environmentObject(appState)
+                    .environment(\.locale, Locale(identifier: currentLanguage.locale))
+                    .tabItem {
+                        Label(
+                            currentLanguage == .arabic ? "التقاط ذكي" : "Capture",
+                            systemImage: "camera.fill"
+                        )
+                    }
+                    .tag(1)
+                
                 ChatView()
                     .environmentObject(geminiManager)
                     .environmentObject(voiceManager)
@@ -62,7 +74,7 @@ struct AFHAMApp: View {
                             systemImage: "message.fill"
                         )
                     }
-                    .tag(1)
+                    .tag(2)
                 
                 VoiceAssistantView()
                     .environmentObject(voiceManager)
@@ -74,7 +86,7 @@ struct AFHAMApp: View {
                             systemImage: "waveform"
                         )
                     }
-                    .tag(2)
+                    .tag(3)
                 
                 ContentCreatorView()
                     .environmentObject(geminiManager)
@@ -85,7 +97,17 @@ struct AFHAMApp: View {
                             systemImage: "square.and.pencil"
                         )
                     }
-                    .tag(3)
+                    .tag(4)
+                
+                ModularCanvasView(fileSearchManager: geminiManager)
+                    .environment(\.locale, Locale(identifier: currentLanguage.locale))
+                    .tabItem {
+                        Label(
+                            currentLanguage == .arabic ? "ورشة العمل" : "Workspace",
+                            systemImage: "rectangle.3.group.fill"
+                        )
+                    }
+                    .tag(5)
                 
                 SettingsView(currentLanguage: $currentLanguage)
                     .environmentObject(geminiManager)
@@ -96,7 +118,7 @@ struct AFHAMApp: View {
                             systemImage: "gear"
                         )
                     }
-                    .tag(4)
+                    .tag(6)
             }
             .environment(\.layoutDirection, currentLanguage == .arabic ? .rightToLeft : .leftToRight)
         }

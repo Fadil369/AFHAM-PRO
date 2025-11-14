@@ -19,15 +19,15 @@ struct ModularCanvasView: View {
 
     var body: some View {
         NavigationView {
-            HSplitView {
+            HStack(spacing: 0) {
                 // Main Canvas Area
                 mainCanvasArea
-                    .frame(minWidth: 600)
+                    .frame(minWidth: 300)
 
                 // Right Panel (Collapsible)
                 if showRightPanel {
                     rightPanel
-                        .frame(minWidth: 300, idealWidth: 400, maxWidth: 500)
+                        .frame(width: 350)
                 }
             }
             .navigationTitle("Docs Workspace")
@@ -443,7 +443,7 @@ struct ModularCanvasView: View {
 #if DEBUG
 struct ModularCanvasView_Previews: PreviewProvider {
     static var previews: some View {
-        ModularCanvasView(fileSearchManager: GeminiFileSearchManager(apiKey: "preview"))
+        ModularCanvasView(fileSearchManager: GeminiFileSearchManager())
             .frame(width: 1400, height: 900)
     }
 }

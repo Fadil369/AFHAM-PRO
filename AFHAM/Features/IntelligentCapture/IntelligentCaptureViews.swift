@@ -369,8 +369,7 @@ struct CaptureResultView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     // Header with image thumbnail
-                    if let imageData = insight.capturedDocument.imageData,
-                       let image = UIImage(data: imageData) {
+                    if let image = UIImage(data: insight.capturedDocument.imageData) {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
@@ -804,8 +803,7 @@ struct CaptureHistoryView: View {
             List(insights) { insight in
                 Button(action: { onSelect(insight) }) {
                     HStack {
-                        if let imageData = insight.capturedDocument.imageData,
-                           let image = UIImage(data: imageData) {
+                        if let image = UIImage(data: insight.capturedDocument.imageData) {
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
