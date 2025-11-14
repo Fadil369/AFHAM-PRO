@@ -409,6 +409,8 @@ All three documents reference demo videos:
 
 ## 📈 Documentation Quality Score
 
+*Calculation methodology: Overall score is the simple average of all five category scores.*
+
 | Category | Score | Notes |
 |----------|-------|-------|
 | Accuracy | 95% | 4 issues out of 100+ items |
