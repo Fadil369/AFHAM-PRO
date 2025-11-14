@@ -32,7 +32,7 @@ class IntelligentCaptureManager: ObservableObject {
     private let deepSeekClient: DeepSeekOCRClient?
     private let openAIClient: OpenAIVisionClient?
     private let geminiManager: GeminiFileSearchManager?
-    private let offlineQueue: OfflineCaptureQueue
+    nonisolated private let offlineQueue: OfflineCaptureQueue
     private let complianceLogger: ComplianceAuditLogger?
     private let templateEngine: MedicalTemplateEngine
 
@@ -185,6 +185,10 @@ class IntelligentCaptureManager: ObservableObject {
         var openAIAnalysis: OpenAIVisionAnalysis?
         var geminiAnalysis: GeminiVisionAnalysis?
 
+        let currentDocumentType = capturedDoc.documentType
+        let currentDocumentId = capturedDoc.id
+        let sanitizedText = redactedText
+
         if !offlineMode {
             // Fan-out to cloud vision APIs in parallel
             async let openAITask: OpenAIVisionAnalysis? = {
@@ -192,11 +196,11 @@ class IntelligentCaptureManager: ObservableObject {
                 do {
                     return try await client.analyzeDocument(
                         imageData: imageData,
-                        documentType: capturedDoc.documentType,
-                        extractedText: redactedText
+                        documentType: currentDocumentType,
+                        extractedText: sanitizedText
                     )
                 } catch {
-                    await self.queueForOfflineProcessing(documentId: capturedDoc.id, jobType: .openAIVision, imageData: imageData)
+                    self.queueForOfflineProcessing(documentId: currentDocumentId, jobType: .openAIVision, imageData: imageData)
                     return nil
                 }
             }()
@@ -206,11 +210,11 @@ class IntelligentCaptureManager: ObservableObject {
                 do {
                     return try await manager.analyzeDocumentVision(
                         imageData: imageData,
-                        documentType: capturedDoc.documentType,
-                        extractedText: redactedText
+                        documentType: currentDocumentType,
+                        extractedText: sanitizedText
                     )
                 } catch {
-                    await self.queueForOfflineProcessing(documentId: capturedDoc.id, jobType: .geminiVision, imageData: imageData)
+                    self.queueForOfflineProcessing(documentId: currentDocumentId, jobType: .geminiVision, imageData: imageData)
                     return nil
                 }
             }()
@@ -218,8 +222,8 @@ class IntelligentCaptureManager: ObservableObject {
             (openAIAnalysis, geminiAnalysis) = await (openAITask, geminiTask)
         } else {
             // Offline: queue both jobs
-            queueForOfflineProcessing(documentId: capturedDoc.id, jobType: .openAIVision, imageData: imageData)
-            queueForOfflineProcessing(documentId: capturedDoc.id, jobType: .geminiVision, imageData: imageData)
+            queueForOfflineProcessing(documentId: currentDocumentId, jobType: .openAIVision, imageData: imageData)
+            queueForOfflineProcessing(documentId: currentDocumentId, jobType: .geminiVision, imageData: imageData)
         }
 
         progress = 0.8
@@ -370,7 +374,7 @@ class IntelligentCaptureManager: ObservableObject {
 
     // MARK: - Offline Queue Management
 
-    private func queueForOfflineProcessing(documentId: UUID, jobType: CaptureJobType, imageData: Data) {
+    private nonisolated func queueForOfflineProcessing(documentId: UUID, jobType: CaptureJobType, imageData: Data) {
         let job = OfflineCaptureJob(
             documentId: documentId,
             jobType: jobType,

@@ -262,7 +262,6 @@ class SecureAPIKeyManager {
 
 // MARK: - Request Manager (Stub for Intelligent Capture compatibility)
 // TODO: Move AFHAM/Core/RequestManager.swift to Xcode project and remove this stub
-@MainActor
 class RequestManager: ObservableObject {
     static let shared = RequestManager()
     private init() {}

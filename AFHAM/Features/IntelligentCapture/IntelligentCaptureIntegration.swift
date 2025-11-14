@@ -26,9 +26,11 @@ class IntelligentCaptureAppState: ObservableObject {
     /// Initialize Intelligent Capture with API keys
     func initialize(
         appState: AppState,
-        requestManager: RequestManager = RequestManager.shared,
+        requestManager: RequestManager? = nil,
         complianceLogger: ComplianceAuditLogger? = nil
     ) async {
+        let actualRequestManager = requestManager ?? RequestManager.shared
+        
         // Retrieve API keys from secure storage
         let deepSeekKey = secureAPIKeyManager.getAPIKey(for: "deepseek")
         let openAIKey = secureAPIKeyManager.getAPIKey(for: "openai")
@@ -42,7 +44,7 @@ class IntelligentCaptureAppState: ObservableObject {
 
         captureManager = IntelligentCaptureManager(
             apiKeys: apiKeys,
-            requestManager: requestManager,
+            requestManager: actualRequestManager,
             complianceLogger: complianceLogger
         )
 
@@ -52,7 +54,7 @@ class IntelligentCaptureAppState: ObservableObject {
     /// Get or create capture manager
     func getCaptureManager(
         appState: AppState,
-        requestManager: RequestManager = RequestManager.shared
+        requestManager: RequestManager? = nil
     ) async -> IntelligentCaptureManager {
         if let manager = captureManager {
             return manager

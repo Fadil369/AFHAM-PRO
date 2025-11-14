@@ -8,10 +8,13 @@
 
 import Foundation
 import SwiftUI
-import AVFoundation
+@preconcurrency import AVFoundation
 import Vision
 import VisionKit
 import Combine
+
+// Allow CVImageBuffer to cross concurrency boundaries safely
+extension CVImageBuffer: @unchecked Sendable {}
 
 // MARK: - Camera Intake Manager
 
@@ -114,8 +117,9 @@ class CameraIntakeManager: NSObject, ObservableObject {
         try configureCameraSettings()
 
         // Start session
+        let sessionToRun = session
         captureQueue.async { [weak self] in
-            self?.captureSession?.startRunning()
+            sessionToRun.startRunning()
 
             Task { @MainActor [weak self] in
                 self?.isSessionRunning = true
@@ -125,11 +129,15 @@ class CameraIntakeManager: NSObject, ObservableObject {
 
     /// Stop the camera capture session
     nonisolated func stopSession() {
-        captureQueue.async { [weak self] in
-            self?.captureSession?.stopRunning()
+        Task { @MainActor [weak self] in
+            guard let self = self, let session = self.captureSession else { return }
 
-            Task { @MainActor [weak self] in
-                self?.isSessionRunning = false
+            self.captureQueue.async {
+                session.stopRunning()
+
+                Task { @MainActor [weak self] in
+                    self?.isSessionRunning = false
+                }
             }
         }
     }
@@ -175,12 +183,7 @@ class CameraIntakeManager: NSObject, ObservableObject {
         isProcessing = true
 
         let settings = AVCapturePhotoSettings()
-        if #available(iOS 16.0, *) {
-            // Use maxPhotoDimensions for high resolution capture
-            settings.maxPhotoDimensions = photoOutput.maxPhotoDimensions
-        } else {
-            settings.isHighResolutionPhotoEnabled = true
-        }
+        settings.isHighResolutionPhotoEnabled = true
         settings.flashMode = .auto
 
         // Enable depth data if available
@@ -468,6 +471,9 @@ extension CameraIntakeManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         // Real-time document detection for visual feedback
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
+        // Copy the pixel buffer to avoid Sendable issues
+        let pixelBufferCopy = pixelBuffer
+        
         processingQueue.async { [weak self] in
             guard let self = self else { return }
 
@@ -492,7 +498,7 @@ extension CameraIntakeManager: AVCaptureVideoDataOutputSampleBufferDelegate {
             request.minimumAspectRatio = 0.3
             request.minimumConfidence = 0.5
 
-            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
+            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBufferCopy, options: [:])
             try? handler.perform([request])
         }
     }

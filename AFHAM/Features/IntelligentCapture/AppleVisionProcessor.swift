@@ -133,8 +133,8 @@ class AppleVisionProcessor: ObservableObject {
 
             // Perform request
             let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
-
-            self.processingQueue.async {
+            
+            processingQueue.async {
                 do {
                     try handler.perform([request])
                 } catch {
@@ -453,8 +453,8 @@ class AppleVisionProcessor: ObservableObject {
             }
 
             let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
-
-            self.processingQueue.async {
+            
+            processingQueue.async {
                 do {
                     try handler.perform([request])
                 } catch {
