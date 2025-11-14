@@ -144,3 +144,54 @@
 "upload_button" = "Upload document button";
 "language_selector" = "Language selector";
 "content_type_selector" = "Content type selector";
+
+/* Intelligent Capture - Document Types */
+"ic.doctype.medical_report" = "Medical Report";
+"ic.doctype.prescription" = "Prescription";
+"ic.doctype.insurance_claim" = "Insurance Claim";
+"ic.doctype.lab_report" = "Lab Report";
+"ic.doctype.pharmacy_label" = "Pharmacy Label";
+"ic.doctype.food_label" = "Food Label";
+"ic.doctype.spreadsheet" = "Spreadsheet";
+"ic.doctype.contract" = "Contract";
+"ic.doctype.generic" = "Generic Document";
+
+/* Intelligent Capture - Processing Stages */
+"ic.stage.captured" = "Captured";
+"ic.stage.apple_vision" = "On-Device OCR";
+"ic.stage.deepseek" = "High-Fidelity OCR";
+"ic.stage.multimodal" = "AI Analysis";
+"ic.stage.completed" = "Completed";
+"ic.stage.failed" = "Failed";
+
+/* Intelligent Capture - UI */
+"ic.title" = "Intelligent Capture";
+"ic.capture_button" = "Capture Document";
+"ic.batch_mode" = "Multi-Page Mode";
+"ic.history" = "Capture History";
+"ic.processing" = "Processing Document...";
+"ic.allow_phi" = "Allow PHI Processing";
+"ic.deferred_analysis" = "Some analysis deferred - will complete when online";
+
+/* Intelligent Capture - Results */
+"ic.results.summary" = "Summary";
+"ic.results.text" = "Extracted Text";
+"ic.results.insights" = "Insights";
+"ic.results.analysis" = "Template Analysis";
+"ic.results.confidence" = "Confidence";
+"ic.results.action_items" = "Action Items";
+"ic.results.key_insights" = "Key Insights";
+"ic.results.bilingual_summary" = "Bilingual Summary";
+"ic.results.compliance" = "Compliance";
+"ic.results.findings" = "Findings";
+"ic.results.interpretations" = "Interpretations";
+"ic.results.recommendations" = "Recommendations";
+
+/* Intelligent Capture - Export */
+"ic.export.title" = "Export";
+"ic.export.fhir" = "FHIR Observation";
+"ic.export.pdf" = "PDF Report";
+"ic.export.csv" = "CSV Data";
+"ic.export.json" = "JSON";
+"ic.export.whatsapp" = "WhatsApp Summary";
+"ic.export.text" = "Plain Text";
