@@ -32,7 +32,8 @@ let package = Package(
                 "LocalizationManager.swift",
                 "AFHAMConstants.swift",
                 "AFHAM/Core/UI/GlassMorphism.swift",
-                "AFHAM/Core/UI/AccessibilityHelpers.swift"
+                "AFHAM/Core/UI/AccessibilityHelpers.swift",
+                "AFHAM/Core/UI/FlowLayout.swift"
             ]
         ),
         .testTarget(
