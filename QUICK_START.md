@@ -27,9 +27,9 @@ bundle --version
 
 ### Step 1: Open Project (1 minute)
 ```bash
-# Navigate to your AFHAM project directory
+# Navigate to your AFHAM project directory.
 cd /path/to/AFHAM-PRO
-# Or if you're already in the project root:
+# If you are already in the root, you can just run the next command.
 open AFHAM.xcodeproj
 ```
 
