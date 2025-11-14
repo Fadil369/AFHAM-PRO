@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentation (User Guide, Developer Guide, API Reference)
 - SwiftLint configuration for code quality
 - Fastlane automation for deployment
+
+### Fixed
+- Added bilingual camera usage disclosure to Info.plist to cover intelligent capture permissions.
 - Contributing guidelines and code of conduct
 
 ## [1.0.0] - 2025-01-XX (Planned)
