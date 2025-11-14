@@ -502,3 +502,64 @@ Scene 4: Export options (10s)
 **AFHAM v1.1.0 - Revolutionizing Healthcare Documentation**  
 © 2025 BrainSAIT Technologies. All rights reserved.
 
+
+---
+
+## 📱 App Store Distribution
+
+### App Identifiers
+
+| Identifier | Value |
+|------------|-------|
+| **Bundle ID** | `com.brainsait.afham` |
+| **SKU** | `com.brainsait.afham` |
+| **Apple ID** | `6755238790` |
+| **App Store URL** | https://apps.apple.com/app/id6755238790 |
+
+### Download Links
+
+**Production**:
+```
+https://apps.apple.com/app/id6755238790
+```
+
+**TestFlight Beta**:
+```
+https://appstoreconnect.apple.com/apps/6755238790/testflight
+```
+
+**App Store Connect Dashboard**:
+```
+https://appstoreconnect.apple.com/apps/6755238790
+```
+
+### Marketing Assets
+
+**QR Code URL**: Generate QR code pointing to:
+```
+https://apps.apple.com/app/id6755238790
+```
+
+**Social Share Template**:
+```
+🎉 AFHAM v1.1.0 is here!
+
+✨ New Features:
+🎤 Voice Assistant with document intelligence
+📸 Intelligent Document Capture
+🎨 Modular Content Workspace
+
+Download now: https://apps.apple.com/app/id6755238790
+
+#HealthTech #AI #MedicalAI #MENA
+```
+
+**Deep Link Scheme**:
+```
+afham://open?feature=voice
+afham://open?feature=capture
+afham://open?feature=workspace
+```
+
+---
+

@@ -505,3 +505,57 @@ We're revolutionizing healthcare documentation and voice interaction in the MENA
 
 *For the complete changelog, see [CHANGELOG.md](CHANGELOG.md)*
 
+
+---
+
+## 📱 App Store Information
+
+### Download AFHAM
+
+**App Store Link**: https://apps.apple.com/app/id6755238790
+
+**Bundle ID**: `com.brainsait.afham`  
+**Apple ID**: `6755238790`  
+**SKU**: `com.brainsait.afham`
+
+### TestFlight Beta
+
+Join our beta program to test new features before release:
+- **TestFlight**: https://appstoreconnect.apple.com/apps/6755238790/testflight
+- **Feedback**: beta@brainsait.com
+
+### App Store Badges
+
+Download on the App Store:
+
+[![Download on App Store](https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg)](https://apps.apple.com/app/id6755238790)
+
+التنزيل من App Store:
+
+[![التنزيل من App Store](https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store-ar.svg)](https://apps.apple.com/app/id6755238790)
+
+### Share AFHAM
+
+**Twitter/X**:
+```
+Check out AFHAM v1.1.0 - Healthcare AI Assistant with Voice! 
+🎤 Voice queries 📸 Document scanning 🎨 Content transformation
+https://apps.apple.com/app/id6755238790
+```
+
+**WhatsApp**:
+```
+https://wa.me/?text=Check%20out%20AFHAM%20-%20Healthcare%20AI%20Assistant%20https://apps.apple.com/app/id6755238790
+```
+
+**Email**:
+```
+Subject: AFHAM v1.1.0 - New Voice & Capture Features
+
+Check out the latest AFHAM update with Voice Assistant, Intelligent Capture, and Modular Workspace!
+
+Download: https://apps.apple.com/app/id6755238790
+```
+
+---
+
