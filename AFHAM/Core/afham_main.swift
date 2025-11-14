@@ -35,7 +35,9 @@ import Speech
 import AudioToolbox
 import Vision
 import NaturalLanguage
-import Translation
+// Translation framework is iOS 18+ only, commented out for iOS 17 compatibility
+// TODO: Add @available(iOS 18.0, *) check when using translation features
+// import Translation
 
 // MARK: - BRAINSAIT: Core Configuration
 struct AFHAMConfig {
