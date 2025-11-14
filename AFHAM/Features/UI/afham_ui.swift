@@ -1,6 +1,7 @@
 // AFHAM - Main UI Implementation
-// NEURAL: Glass morphism UI with BrainSAIT colors
+// NEURAL: Glass morphism UI with BrainSAIT colors - MODERNIZED
 // BILINGUAL: RTL/LTR adaptive layouts
+// UI 2.0: Intent-driven home, document capsules, enhanced glass morphism
 
 import SwiftUI
 import UniformTypeIdentifiers
@@ -40,6 +41,18 @@ struct AFHAMApp: View {
             
             // BILINGUAL: RTL/LTR adaptive tab view
             TabView(selection: $selectedTab) {
+                // NEW: Intent-driven home with mission cards
+                HomeView(selectedTab: $selectedTab, currentLanguage: $currentLanguage)
+                    .environmentObject(geminiManager)
+                    .environment(\.locale, Locale(identifier: currentLanguage.locale))
+                    .tabItem {
+                        Label(
+                            currentLanguage == .arabic ? "الرئيسية" : "Home",
+                            systemImage: "house.fill"
+                        )
+                    }
+                    .tag(0)
+
                 DocumentsView()
                     .environmentObject(geminiManager)
                     .environmentObject(voiceManager)
@@ -50,7 +63,7 @@ struct AFHAMApp: View {
                             systemImage: "doc.fill"
                         )
                     }
-                    .tag(0)
+                    .tag(1)
                 
                 ChatView()
                     .environmentObject(geminiManager)
@@ -62,8 +75,8 @@ struct AFHAMApp: View {
                             systemImage: "message.fill"
                         )
                     }
-                    .tag(1)
-                
+                    .tag(2)
+
                 VoiceAssistantView()
                     .environmentObject(voiceManager)
                     .environmentObject(geminiManager)
@@ -74,8 +87,8 @@ struct AFHAMApp: View {
                             systemImage: "waveform"
                         )
                     }
-                    .tag(2)
-                
+                    .tag(3)
+
                 ContentCreatorView()
                     .environmentObject(geminiManager)
                     .environment(\.locale, Locale(identifier: currentLanguage.locale))
@@ -85,8 +98,8 @@ struct AFHAMApp: View {
                             systemImage: "square.and.pencil"
                         )
                     }
-                    .tag(3)
-                
+                    .tag(4)
+
                 SettingsView(currentLanguage: $currentLanguage)
                     .environmentObject(geminiManager)
                     .environmentObject(voiceManager)
@@ -96,9 +109,141 @@ struct AFHAMApp: View {
                             systemImage: "gear"
                         )
                     }
-                    .tag(4)
+                    .tag(5)
             }
             .environment(\.layoutDirection, currentLanguage == .arabic ? .rightToLeft : .leftToRight)
+        }
+    }
+}
+
+// MARK: - Intent-Driven Home View
+struct HomeView: View {
+    @Binding var selectedTab: Int
+    @Binding var currentLanguage: AFHAMApp.AppLanguage
+    @EnvironmentObject var geminiManager: GeminiFileSearchManager
+    @Environment(\.locale) var locale
+
+    private var isArabic: Bool {
+        locale.language.languageCode?.identifier == "ar"
+    }
+
+    // Mock suggestions - in production, this would come from user activity tracking
+    private var suggestions: [MissionSuggestion] {
+        var sugs: [MissionSuggestion] = []
+
+        // Add smart suggestions based on recent activity
+        if !geminiManager.documents.isEmpty {
+            sugs.append(MissionSuggestion(
+                type: .ask,
+                title: isArabic ? "اسأل عن المستندات الحديثة" : "Ask about recent documents",
+                subtitle: isArabic ? "\(geminiManager.documents.count) مستندات جاهزة" : "\(geminiManager.documents.count) documents ready",
+                progress: nil,
+                badge: isArabic ? "جديد" : "New"
+            ))
+        }
+
+        return sugs
+    }
+
+    var body: some View {
+        NavigationView {
+            ZStack {
+                // Background
+                Color.black.opacity(0.2)
+                    .ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 24) {
+                        // Welcome Header
+                        VStack(alignment: isArabic ? .trailing : .leading, spacing: 8) {
+                            Text(isArabic ? "مرحباً بك في" : "Welcome to")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(AFHAMConfig.professionalGray)
+
+                            Text("AFHAM")
+                                .font(.system(size: 42, weight: .bold))
+                                .foregroundColor(.white)
+
+                            Text(isArabic ? "نظام متقدم لفهم المستندات" : "Advanced Document Understanding")
+                                .font(.system(size: 16))
+                                .foregroundColor(AFHAMConfig.professionalGray)
+                        }
+                        .frame(maxWidth: .infinity, alignment: isArabic ? .trailing : .leading)
+                        .padding(.horizontal)
+                        .padding(.top, 20)
+
+                        // Mission Cards
+                        MissionGridView(
+                            selectedTab: $selectedTab,
+                            isArabic: isArabic,
+                            suggestions: suggestions
+                        )
+
+                        // Recent Activity (if any)
+                        if !geminiManager.documents.isEmpty {
+                            recentActivitySection
+                        }
+                    }
+                    .padding(.bottom, 20)
+                }
+            }
+            .navigationTitle(isArabic ? "الرئيسية" : "Home")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        currentLanguage = currentLanguage == .arabic ? .english : .arabic
+                    }) {
+                        Image(systemName: "globe")
+                            .foregroundColor(AFHAMConfig.signalTeal)
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var recentActivitySection: some View {
+        VStack(alignment: isArabic ? .trailing : .leading, spacing: 12) {
+            HStack {
+                Image(systemName: "clock.fill")
+                    .foregroundColor(AFHAMConfig.signalTeal)
+
+                Text(isArabic ? "النشاط الأخير" : "Recent Activity")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.white)
+
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+
+            ForEach(geminiManager.documents.prefix(3)) { document in
+                HStack(spacing: 12) {
+                    Circle()
+                        .fill(AFHAMConfig.signalTeal.opacity(0.2))
+                        .frame(width: 40, height: 40)
+                        .overlay(
+                            Image(systemName: "doc.fill")
+                                .foregroundColor(AFHAMConfig.signalTeal)
+                        )
+
+                    VStack(alignment: isArabic ? .trailing : .leading, spacing: 4) {
+                        Text(document.fileName)
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+
+                        Text(isArabic ? "تم الرفع" : "Uploaded")
+                            .font(.system(size: 13))
+                            .foregroundColor(AFHAMConfig.professionalGray)
+                    }
+
+                    Spacer()
+                }
+                .padding(16)
+                .glassMorphism(elevation: .base, cornerRadius: 16, accent: nil)
+                .padding(.horizontal, 20)
+            }
         }
     }
 }
@@ -125,11 +270,19 @@ struct DocumentsView: View {
                     // Header with upload button
                     headerView
                     
-                    // Documents list
+                    // Documents list - MODERNIZED with capsules
                     if geminiManager.documents.isEmpty {
                         emptyStateView
                     } else {
-                        documentsListView
+                        // NEW: Horizontal scrollable capsules grouped by status
+                        DocumentCapsulesContainerView(
+                            documents: geminiManager.documents,
+                            isArabic: isArabic,
+                            onDocumentTap: { document in
+                                // Handle document tap (could navigate to detail view)
+                                print("Tapped document: \(document.fileName)")
+                            }
+                        )
                     }
                 }
             }
