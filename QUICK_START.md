@@ -27,15 +27,21 @@ bundle --version
 
 ### Step 1: Open Project (1 minute)
 ```bash
-cd /Users/fadil369/AFHAM-PRO-CORE
+# Navigate to your AFHAM project directory.
+cd /path/to/AFHAM-PRO
+# If you are already in the root, you can just run the next command.
 open AFHAM.xcodeproj
 ```
 
 ### Step 2: Configure API Key (2 minutes)
 1. Get your Gemini API key from: https://makersuite.google.com/app/apikey
-2. Create `Config/Environment.plist` file
-3. Add your API key:
-```xml
+2. Create the Config directory and Environment.plist file:
+```bash
+# Create Config directory if it doesn't exist
+mkdir -p Config
+
+# Create Environment.plist file
+cat > Config/Environment.plist << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -44,6 +50,13 @@ open AFHAM.xcodeproj
     <string>YOUR_API_KEY_HERE</string>
 </dict>
 </plist>
+EOF
+```
+3. Replace `YOUR_API_KEY_HERE` with your actual Gemini API key:
+```bash
+# Edit the file and replace the API key
+nano Config/Environment.plist
+# Or open in Xcode and edit there
 ```
 
 ### Step 3: Select Target (30 seconds)
